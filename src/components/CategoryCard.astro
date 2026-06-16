@@ -1,0 +1,31 @@
+---
+import type { Section } from '../types/quiz';
+
+interface Props {
+  section: Section;
+  questionCount: number;
+  href: string;
+}
+
+const { section, questionCount, href } = Astro.props;
+---
+
+<a
+  href={href}
+  class="block bg-white rounded-xl border border-slate-200 p-5 hover:border-indigo-400 hover:shadow-md transition-all group"
+>
+  <div class="flex items-start justify-between gap-3">
+    <div>
+      <p class="font-semibold text-slate-800 group-hover:text-indigo-700 transition-colors">
+        {section.label}
+      </p>
+      <p class="text-xs text-slate-400 mt-0.5">{section.labelEn}</p>
+      <p class="text-sm text-slate-500 mt-2 leading-relaxed">{section.description}</p>
+    </div>
+    <div class="shrink-0 text-right">
+      <span class="inline-block bg-indigo-50 text-indigo-700 text-sm font-medium px-2.5 py-1 rounded-full">
+        {questionCount}問
+      </span>
+    </div>
+  </div>
+</a>

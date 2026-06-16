@@ -1,0 +1,246 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { QUESTIONS, SECTIONS } from '../../data/questions';
+import type { GetStaticPaths } from 'astro';
+
+export const getStaticPaths: GetStaticPaths = () => {
+  return SECTIONS.map((section) => ({
+    params: { section: section.id },
+    props: {
+      section,
+      questions: QUESTIONS.filter((q) => q.sectionId === section.id),
+    },
+  }));
+};
+
+const { section, questions } = Astro.props;
+const questionsJson = JSON.stringify(questions);
+const sectionLabel = section.label;
+const homeUrl = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+---
+
+<BaseLayout title={`${section.label}クイズ`}>
+  <!-- Data injection -->
+  <script is:inline define:vars={{ questionsJson, sectionLabel, homeUrl }}>
+    window.__QUIZ_QUESTIONS__ = JSON.parse(questionsJson);
+    window.__QUIZ_SECTION_LABEL__ = sectionLabel;
+    window.__QUIZ_HOME_URL__ = homeUrl;
+  </script>
+
+  <!-- Progress bar -->
+  <div class="mb-6">
+    <div class="flex items-center justify-between text-sm mb-2">
+      <span id="section-label" class="font-semibold text-slate-700">{section.label}</span>
+      <span id="score-display" class="text-slate-500">スコア: 0 / 0</span>
+    </div>
+    <div class="flex items-center gap-3">
+      <div class="flex-1 bg-slate-200 rounded-full h-2.5">
+        <div id="progress-bar" class="bg-indigo-600 h-2.5 rounded-full transition-all duration-300" style="width: 0%"></div>
+      </div>
+      <span id="progress-label" class="text-sm text-slate-400 shrink-0 w-14 text-right">0 / 0</span>
+    </div>
+  </div>
+
+  <!-- Quiz container -->
+  <div id="quiz-container" class="min-h-64"></div>
+</BaseLayout>
+
+<script>
+  type Question = {
+    id: string;
+    sectionId: string;
+    question: string;
+    choices: [string, string, string, string];
+    correctIndex: 0 | 1 | 2 | 3;
+    explanation: string;
+  };
+
+  declare global {
+    interface Window {
+      __QUIZ_QUESTIONS__: Question[];
+      __QUIZ_SECTION_LABEL__: string;
+      __QUIZ_HOME_URL__: string;
+    }
+  }
+
+  function shuffle<T>(arr: T[]): T[] {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function scoreMessage(correct: number, total: number): string {
+    const pct = total === 0 ? 0 : (correct / total) * 100;
+    if (pct >= 90) return '優秀！UX検定基礎の合格レベルに達しています。';
+    if (pct >= 70) return 'よくできました！あと少しで合格レベルです。';
+    if (pct >= 50) return 'もう少し学習が必要です。苦手な分野を重点的に復習しましょう。';
+    return '基礎から復習しましょう。シラバスに沿って学習を進めてください。';
+  }
+
+  const questions = shuffle(window.__QUIZ_QUESTIONS__);
+  const homeUrl = window.__QUIZ_HOME_URL__;
+
+  let currentIndex = 0;
+  let score = 0;
+
+  const container = document.getElementById('quiz-container')!;
+  const progressBar = document.getElementById('progress-bar')!;
+  const progressLabel = document.getElementById('progress-label')!;
+  const scoreDisplay = document.getElementById('score-display')!;
+
+  function updateProgress() {
+    const pct = questions.length === 0 ? 0 : (currentIndex / questions.length) * 100;
+    progressBar.style.width = pct + '%';
+    progressLabel.textContent = `${currentIndex} / ${questions.length}`;
+    scoreDisplay.textContent = `スコア: ${score} / ${currentIndex}`;
+  }
+
+  function renderQuestion() {
+    const q = questions[currentIndex];
+    updateProgress();
+
+    container.innerHTML = `
+      <div class="bg-white rounded-xl border border-slate-200 p-6 space-y-6">
+        <div>
+          <p class="text-xs font-medium text-indigo-600 mb-2">問 ${currentIndex + 1}</p>
+          <p class="text-slate-800 leading-relaxed font-medium">${escapeHtml(q.question)}</p>
+        </div>
+        <div class="space-y-3" id="choices">
+          ${q.choices
+            .map(
+              (c, i) => `
+            <button
+              data-index="${i}"
+              class="choice-btn w-full text-left border-2 border-slate-200 rounded-xl px-5 py-4 text-slate-700 hover:border-indigo-400 hover:bg-indigo-50 transition-all"
+            >
+              <span class="font-medium text-slate-400 mr-2">${i + 1}.</span>${escapeHtml(c)}
+            </button>
+          `
+            )
+            .join('')}
+        </div>
+        <div id="explanation-area" class="hidden"></div>
+        <button
+          id="next-btn"
+          class="hidden w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl px-6 py-3 transition-colors"
+        >
+          ${currentIndex + 1 < questions.length ? '次の問題 →' : '結果を見る'}
+        </button>
+      </div>
+    `;
+
+    document.querySelectorAll<HTMLButtonElement>('.choice-btn').forEach((btn) => {
+      btn.addEventListener('click', () => handleAnswer(Number(btn.dataset.index)));
+    });
+  }
+
+  function handleAnswer(selectedIndex: number) {
+    const q = questions[currentIndex];
+    const isCorrect = selectedIndex === q.correctIndex;
+    if (isCorrect) score++;
+
+    document.querySelectorAll<HTMLButtonElement>('.choice-btn').forEach((btn, i) => {
+      btn.disabled = true;
+      if (i === q.correctIndex) {
+        btn.className = btn.className
+          .replace('border-slate-200', 'border-green-500')
+          .replace('hover:border-indigo-400', '')
+          .replace('hover:bg-indigo-50', 'bg-green-50');
+        btn.className += ' border-green-500 bg-green-50 text-green-800';
+      } else if (i === selectedIndex && !isCorrect) {
+        btn.className = btn.className
+          .replace('border-slate-200', 'border-red-400')
+          .replace('hover:border-indigo-400', '')
+          .replace('hover:bg-indigo-50', 'bg-red-50');
+        btn.className += ' border-red-400 bg-red-50 text-red-800 opacity-80';
+      } else {
+        btn.className += ' opacity-40';
+      }
+    });
+
+    const explanationArea = document.getElementById('explanation-area')!;
+    explanationArea.className = 'border-t border-slate-100 pt-4';
+    explanationArea.innerHTML = `
+      <div class="flex gap-2 mb-2">
+        ${
+          isCorrect
+            ? '<span class="text-green-600 font-bold text-sm">✓ 正解！</span>'
+            : '<span class="text-red-500 font-bold text-sm">✗ 不正解</span>'
+        }
+      </div>
+      <p class="text-sm text-slate-600 leading-relaxed">${escapeHtml(q.explanation)}</p>
+    `;
+
+    const nextBtn = document.getElementById('next-btn')!;
+    nextBtn.className = nextBtn.className.replace('hidden', '');
+    nextBtn.addEventListener('click', () => {
+      currentIndex++;
+      if (currentIndex < questions.length) {
+        renderQuestion();
+      } else {
+        renderResults();
+      }
+    });
+
+    scoreDisplay.textContent = `スコア: ${score} / ${currentIndex + 1}`;
+  }
+
+  function renderResults() {
+    updateProgress();
+    const pct = Math.round((score / questions.length) * 100);
+    const msg = scoreMessage(score, questions.length);
+
+    let ringColor = 'text-indigo-600';
+    if (pct >= 90) ringColor = 'text-green-600';
+    else if (pct >= 70) ringColor = 'text-blue-600';
+    else if (pct >= 50) ringColor = 'text-yellow-600';
+    else ringColor = 'text-red-500';
+
+    container.innerHTML = `
+      <div class="bg-white rounded-xl border border-slate-200 p-8 text-center space-y-6">
+        <h2 class="text-xl font-bold text-slate-800">クイズ完了！</h2>
+        <div class="space-y-2">
+          <p class="text-5xl font-bold ${ringColor}">${pct}%</p>
+          <p class="text-slate-500">正解数: <span class="font-semibold text-slate-700">${score} / ${questions.length}</span></p>
+        </div>
+        <div class="bg-slate-50 rounded-xl p-4">
+          <p class="text-sm text-slate-600">${escapeHtml(msg)}</p>
+        </div>
+        <div class="flex gap-3">
+          <button
+            id="retry-btn"
+            class="flex-1 border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-50 font-semibold rounded-xl px-4 py-3 transition-colors"
+          >
+            もう一度
+          </button>
+          <a
+            href="${homeUrl}"
+            class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl px-4 py-3 transition-colors text-center"
+          >
+            カテゴリ変更
+          </a>
+        </div>
+      </div>
+    `;
+
+    document.getElementById('retry-btn')!.addEventListener('click', () => {
+      questions.sort(() => Math.random() - 0.5);
+      currentIndex = 0;
+      score = 0;
+      renderQuestion();
+    });
+  }
+
+  function escapeHtml(str: string): string {
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  renderQuestion();
+</script>

@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CategoryCard from '../components/CategoryCard.astro';
+import { SECTIONS, QUESTIONS } from '../data/questions';
+
+const totalCount = QUESTIONS.length;
+const BASE = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+
+const sectionCounts = SECTIONS.map((section) => ({
+  section,
+  count: QUESTIONS.filter((q) => q.sectionId === section.id).length,
+}));
+---
+
+<BaseLayout title="ホーム">
+  <div class="space-y-8">
+    <!-- Hero -->
+    <div class="text-center space-y-3 pt-4">
+      <h1 class="text-3xl font-bold text-slate-800">UX検定基礎</h1>
+      <p class="text-slate-500">シラバス全7セクション・{totalCount}問の練習問題で合格を目指そう</p>
+    </div>
+
+    <!-- All questions button -->
+    <a
+      href={`${BASE}quiz/`}
+      class="flex items-center justify-between bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl px-6 py-5 transition-colors shadow-md"
+    >
+      <div>
+        <p class="font-bold text-lg">全問題に挑戦</p>
+        <p class="text-indigo-200 text-sm mt-0.5">全{totalCount}問・ランダム出題</p>
+      </div>
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </a>
+
+    <!-- Section cards -->
+    <div>
+      <h2 class="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-3">セクション別に練習</h2>
+      <div class="space-y-3">
+        {sectionCounts.map(({ section, count }) => (
+          <CategoryCard
+            section={section}
+            questionCount={count}
+            href={`${BASE}quiz/${section.id}/`}
+          />
+        ))}
+      </div>
+    </div>
+  </div>
+</BaseLayout>
