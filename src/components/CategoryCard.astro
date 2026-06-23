@@ -4,28 +4,38 @@ import type { Section } from '../types/quiz';
 interface Props {
   section: Section;
   questionCount: number;
-  href: string;
+  quizHref: string;
+  studyHref: string;
 }
 
-const { section, questionCount, href } = Astro.props;
+const { section, questionCount, quizHref, studyHref } = Astro.props;
 ---
 
-<a
-  href={href}
-  class="block bg-white rounded-xl border border-slate-200 p-5 hover:border-indigo-400 hover:shadow-md transition-all group"
->
-  <div class="flex items-start justify-between gap-3">
-    <div>
-      <p class="font-semibold text-slate-800 group-hover:text-indigo-700 transition-colors">
-        {section.label}
-      </p>
+<div class="bg-white rounded-xl border border-slate-200 p-5 hover:border-slate-300 transition-all">
+  <div class="flex items-start justify-between gap-3 mb-4">
+    <div class="flex-1">
+      <p class="font-semibold text-slate-800">{section.label}</p>
       <p class="text-xs text-slate-400 mt-0.5">{section.labelEn}</p>
       <p class="text-sm text-slate-500 mt-2 leading-relaxed">{section.description}</p>
     </div>
-    <div class="shrink-0 text-right">
+    <div class="shrink-0">
       <span class="inline-block bg-indigo-50 text-indigo-700 text-sm font-medium px-2.5 py-1 rounded-full">
         {questionCount}問
       </span>
     </div>
   </div>
-</a>
+  <div class="flex gap-2">
+    <a
+      href={studyHref}
+      class="flex-1 text-center text-sm font-semibold border border-slate-200 text-slate-600 hover:border-indigo-300 hover:text-indigo-700 rounded-lg px-3 py-2 transition-all"
+    >
+      学習する
+    </a>
+    <a
+      href={quizHref}
+      class="flex-1 text-center text-sm font-semibold bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg px-3 py-2 transition-colors"
+    >
+      練習する →
+    </a>
+  </div>
+</div>

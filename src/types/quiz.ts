@@ -1,11 +1,13 @@
 export type SectionId =
-  | 'ux-basics'
+  | 'ux-intelligence'
+  | 'ux-knowledge'
   | 'ux-project-planning'
   | 'user-understanding'
   | 'user-requirements'
   | 'ux-design-implementation'
   | 'ux-design-evaluation'
-  | 'ux-operations';
+  | 'ux-operations'
+  | 'ux-organization';
 
 export interface Section {
   id: SectionId;
@@ -21,6 +23,7 @@ export interface Question {
   choices: [string, string, string, string];
   correctIndex: 0 | 1 | 2 | 3;
   explanation: string;
+  tip?: string;
 }
 
 export interface LearningRecord {

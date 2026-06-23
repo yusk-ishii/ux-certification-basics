@@ -23,7 +23,7 @@ const sectionCounts = SECTIONS.map((section) => ({
     <!-- Hero -->
     <div class="text-center space-y-2 pt-4">
       <h1 class="text-3xl font-bold text-slate-800">UX検定基礎</h1>
-      <p class="text-slate-500 text-sm">シラバス全7セクション・{totalCount}問</p>
+      <p class="text-slate-500 text-sm">シラバス全9セクション・{totalCount}問</p>
     </div>
 
     <!-- Dynamic mode cards (populated by JS) -->
@@ -62,7 +62,7 @@ const sectionCounts = SECTIONS.map((section) => ({
           📊 進捗を見る
         </a>
         <a href={`${BASE}quiz/bookmarks/`} class="flex-1 bg-white border border-slate-200 hover:border-yellow-400 rounded-xl px-4 py-3 text-sm font-semibold text-slate-700 text-center transition-all">
-          ★ ブックマーク
+          <span style="color: #FFDB50">★</span> ブックマーク
         </a>
       </div>
     </div>
@@ -75,7 +75,8 @@ const sectionCounts = SECTIONS.map((section) => ({
           <CategoryCard
             section={section}
             questionCount={count}
-            href={`${BASE}quiz/${section.id}/`}
+            quizHref={`${BASE}quiz/${section.id}/`}
+            studyHref={`${BASE}quiz/study/${section.id}/`}
           />
         ))}
       </div>
