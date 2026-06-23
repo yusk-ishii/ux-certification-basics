@@ -2,10 +2,16 @@ import type { Question, Section } from '../types/quiz';
 
 export const SECTIONS: Section[] = [
   {
-    id: 'ux-basics',
-    label: 'UX基礎知識',
-    labelEn: 'UX Foundation',
-    description: 'UXの定義・構成要素・関連概念・ビジネス背景について問います。',
+    id: 'ux-intelligence',
+    label: 'UXインテリジェンスの理念',
+    labelEn: 'UX Intelligence',
+    description: 'UXインテリジェンスの理念・OMO・アフターデジタル・D2C・プラットフォームビジネスについて問います。',
+  },
+  {
+    id: 'ux-knowledge',
+    label: 'UX関連基礎知識',
+    labelEn: 'UX Foundation Knowledge',
+    description: 'UXの定義・構成フレームワーク・ユーザビリティ・アクセシビリティの基礎概念について問います。',
   },
   {
     id: 'ux-project-planning',
@@ -41,17 +47,25 @@ export const SECTIONS: Section[] = [
     id: 'ux-operations',
     label: 'UX運用・グロース',
     labelEn: 'UX Operations & Growth',
-    description: '継続的改善・組織開発・UX人材育成・DevOps/DesignOpsについて問います。',
+    description: '継続的改善・DevOps/DesignOps・グロースチーム・データ活用について問います。',
+  },
+  {
+    id: 'ux-organization',
+    label: 'UX組織化',
+    labelEn: 'UX Organization',
+    description: 'UX人材育成・組織変革・スキルマップ・UX推進体制について問います。',
   },
 ];
 
 export const QUESTIONS: Question[] = [
   // ─────────────────────────────────────────────────────────
-  // SECTION 1: UX基礎知識 (15問)
+  // SECTION 1: UXインテリジェンスの理念 (20問)
+  //   ux-basics-001,007-011,013-014 → ux-intelligence
+  //   ux-basics-002-006,012,015 → ux-knowledge
   // ─────────────────────────────────────────────────────────
   {
     id: 'ux-basics-001',
-    sectionId: 'ux-basics',
+    sectionId: 'ux-intelligence',
     question: 'UXインテリジェンスが生み出す価値として重要視するものを、次の中から選びなさい。',
     choices: [
       '斬新で今までになかった製品・サービスを生み出すこと。',
@@ -62,10 +76,11 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'UXインテリジェンスは「UX選択の自由」を核心に置きます。データを活用してユーザー一人ひとりの選択肢を広げ、その人らしい行動を可能にすることを最重視します。',
+    tip: 'UXインテリジェンスの「選択の自由」は、個人情報の最大活用や監視とは対極にある概念です。「データでユーザーを管理する」のではなく「データでユーザーの可能性を広げる」という方向性が核心です。',
   },
   {
     id: 'ux-basics-002',
-    sectionId: 'ux-basics',
+    sectionId: 'ux-knowledge',
     question: 'ISO 9241-210によるUX（User Experience）の定義に含まれるものはどれか。',
     choices: [
       '製品の視覚的なデザイン品質のみ',
@@ -76,10 +91,11 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'ISO 9241-210では、UXを「製品・サービスの使用前・使用中・使用後に生じるユーザーの知覚と反応」と定義しています。使用前の期待や使用後の振り返りも含む点が特徴です。',
+    tip: 'ISO 9241はヒューマンシステムインタラクション全般を扱うシリーズ規格。-11がユーザビリティ、-210がHCDを規定しています。UX定義の特徴は「使用前・使用中・使用後」を含む点と「知覚と反応」という表現です。',
   },
   {
     id: 'ux-basics-003',
-    sectionId: 'ux-basics',
+    sectionId: 'ux-knowledge',
     question: 'Peter MorvilleによるUXハニカムに含まれる要素として正しいものはどれか。',
     choices: [
       '信頼性（Reliability）',
@@ -90,10 +106,11 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'UXハニカムはPeter Morvilleが提唱した7要素（Useful・Usable・Desirable・Findable・Accessible・Credible・Valuable）で構成されます。「有用性（Useful）」はその中心的な要素です。',
+    tip: '7要素の頭文字：Useful・Usable・Desirable・Findable・Accessible・Credible・Valuable。中心に「Valuable」が置かれることが多いです。Peter MorvilleはIA（情報アーキテクチャ）の権威でもあります。',
   },
   {
     id: 'ux-basics-004',
-    sectionId: 'ux-basics',
+    sectionId: 'ux-knowledge',
     question: 'ジェームズ・ギャレットが提唱した「UXの5階層モデル」の最下層はどれか。',
     choices: [
       'スケルトン（Skeleton）',
@@ -104,10 +121,11 @@ export const QUESTIONS: Question[] = [
     correctIndex: 2,
     explanation:
       '5階層モデルはStrategy（戦略）→Scope（要件）→Structure（構造）→Skeleton（骨格）→Surface（表層）の順で構成され、Strategyが最下層です。下位の層が上位の層を支える構造です。',
+    tip: '覚え方（下から）：S・S・S・S・S → Strategy・Scope・Structure・Skeleton・Surface。「下層が上層を規定する」関係が重要です。WebにはHypertext（情報構造）とInterface（インターフェース）の二面性があるという概念も含みます。',
   },
   {
     id: 'ux-basics-005',
-    sectionId: 'ux-basics',
+    sectionId: 'ux-knowledge',
     question: 'UX（ユーザーエクスペリエンス）とユーザビリティの関係として正しい説明はどれか。',
     choices: [
       'ユーザビリティはUXよりも広い概念である',
@@ -118,10 +136,11 @@ export const QUESTIONS: Question[] = [
     correctIndex: 2,
     explanation:
       'UXはユーザーの体験全体を包含する広い概念であり、ユーザビリティ（使いやすさ）はその構成要素の一つです。優れたUXにはユーザビリティの高さが必要ですが、それだけでは十分ではありません。',
+    tip: '包含関係：UX⊃ユーザビリティ。UXは感情・意味・美しさ・ブランドイメージなども含む広い概念。ユーザビリティは「使いやすさ」に特化した概念。ISO 9241-11でユーザビリティが、ISO 9241-210でUXが定義されています。',
   },
   {
     id: 'ux-basics-006',
-    sectionId: 'ux-basics',
+    sectionId: 'ux-knowledge',
     question: 'CX（カスタマーエクスペリエンス）とUXの関係として最も適切なものはどれか。',
     choices: [
       'CXとUXは全く同じ概念である',
@@ -132,10 +151,11 @@ export const QUESTIONS: Question[] = [
     correctIndex: 2,
     explanation:
       'CXは顧客が企業と関わる全接点（認知・購入・利用・サポートなど）での体験を指します。UXは特定の製品・サービスを使用する際の体験を指し、CXはUXよりも広い概念です。',
+    tip: '包含関係の整理：CX⊃UX（一般的な解釈）。CXは認知・購入・利用・サポート・解約などの全接点をカバー。UXは特定の製品・サービス利用時の体験に焦点。ただし業界によってCX≒UXとして使われることもあります。',
   },
   {
     id: 'ux-basics-007',
-    sectionId: 'ux-basics',
+    sectionId: 'ux-intelligence',
     question: 'OMO（Online Merges with Offline）の説明として正しいものはどれか。',
     choices: [
       'オンラインショップとオフライン店舗を完全に分離して運営する手法',
@@ -146,10 +166,11 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'OMOとは、オンラインとオフラインの境界を取り払い、両者が融合した状態でユーザーに一体的な体験を提供するという概念です。中国のテック企業が先行し、世界的に注目されています。',
+    tip: 'OMOはOnline Merges with Offlineの略。O2O（Online to Offline）との違い：O2OはオンラインからオフラインへのトラフィックD導線を指すのに対し、OMOは両者の「融合」を指します。中国のフーマーフレッシュ（アリババ）が先進事例として有名です。',
   },
   {
     id: 'ux-basics-008',
-    sectionId: 'ux-basics',
+    sectionId: 'ux-intelligence',
     question: 'アフターデジタルの概念として正しいものはどれか。',
     choices: [
       'デジタル技術が普及したことで、デジタルは非日常的な体験となった',
@@ -160,10 +181,11 @@ export const QUESTIONS: Question[] = [
     correctIndex: 2,
     explanation:
       'アフターデジタルとは、デジタルが社会全体に浸透し、人々の行動がすべてデジタルデータとして捉えられる時代・状況を指します（藤井保文著「アフターデジタル」）。リアルとデジタルの主従関係が逆転した状態です。',
+    tip: '『アフターデジタル』（藤井保文著）はOMOの概念を日本文脈で解説した書籍。試験では「デジタルが完全に生活に浸透した世界」「リアルとデジタルの主従関係の逆転」がキーワードになります。',
   },
   {
     id: 'ux-basics-009',
-    sectionId: 'ux-basics',
+    sectionId: 'ux-intelligence',
     question: 'UXグロースにおけるトップダウン型とボトムアップ型の説明として正しいものはどれか。',
     choices: [
       'トップダウン型は現場担当者が主導し、ボトムアップ型は経営陣が主導する',
@@ -174,10 +196,11 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'トップダウン型UXグロースは経営判断や全社戦略からUX改善を推進します。ボトムアップ型は現場のチームが日々の改善活動を積み上げる形で推進します。両者を組み合わせることが効果的です。',
+    tip: '試験では「どちらが優れているか」ではなく「両者の組み合わせが効果的」という点が問われることが多いです。大企業ではトップダウンが必要なことが多く、スタートアップではボトムアップから始まることが多い傾向があります。',
   },
   {
     id: 'ux-basics-010',
-    sectionId: 'ux-basics',
+    sectionId: 'ux-intelligence',
     question: 'D2C（Direct to Consumer）の説明として正しいものはどれか。',
     choices: [
       '中間流通業者を通じて消費者に商品を届けるビジネスモデル',
@@ -188,10 +211,11 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'D2Cとは、メーカーや企業が卸・小売などの中間業者を介さず、自社のECサイトや直営店を通じて消費者に直接販売するビジネスモデルです。顧客データを直接取得できる点が強みです。',
+    tip: 'D2Cの最大の特徴は「中間業者を介さないため、顧客データを直接取得できる」点です。これがUXの継続的改善とデータ活用につながります。Nike・Appleなどが代表的なD2Cモデルを展開しています。',
   },
   {
     id: 'ux-basics-011',
-    sectionId: 'ux-basics',
+    sectionId: 'ux-intelligence',
     question: 'プラットフォームビジネスの特徴として最も適切なものはどれか。',
     choices: [
       '単一の製品・サービスを大量生産・大量販売するモデル',
@@ -202,10 +226,11 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'プラットフォームビジネスは供給者（売り手）と需要者（買い手）をつなぐ場を提供し、参加者が増えるほど価値が高まる「ネットワーク効果」を活用します。Amazon・Airbnbなどが代表例です。',
+    tip: '試験ではネットワーク効果がキーワード。「参加者が増えるほど価値が高まる」のがプラットフォームの本質です。直接的ネットワーク効果（SNS）と間接的ネットワーク効果（マーケットプレイス）の2種類があります。',
   },
   {
     id: 'ux-basics-012',
-    sectionId: 'ux-basics',
+    sectionId: 'ux-knowledge',
     question: 'UX白書（White Paper on UX）が示すUXの時間的範囲として正しいものはどれか。',
     choices: [
       '製品・サービスの利用中のみ',
@@ -216,10 +241,11 @@ export const QUESTIONS: Question[] = [
     correctIndex: 2,
     explanation:
       'UX白書（Roto et al., 2011）では、UXを「利用前（anticipated）」「利用中（momentary）」「利用後（episodic）」「累積的（cumulative）」の時間軸で捉えており、利用前後を含む全体の体験を対象としています。',
+    tip: 'UX白書の4つの時間軸：anticipated（利用前の期待）→ momentary（利用中の瞬間的体験）→ episodic（利用直後の振り返り）→ cumulative（長期的な累積体験）。ISOの定義とセットで覚えておきましょう。',
   },
   {
     id: 'ux-basics-013',
-    sectionId: 'ux-basics',
+    sectionId: 'ux-intelligence',
     question: 'バリュージャーニーの説明として正しいものはどれか。',
     choices: [
       '商品の製造から販売までのサプライチェーン全体',
@@ -230,10 +256,11 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'バリュージャーニーはアフターデジタルの文脈で使われる概念で、データを活用してユーザーとの継続的な関係を築き、ユーザーの状況に合わせてタイムリーに価値を提供し続けるサイクルを指します。',
+    tip: 'バリュージャーニーとカスタマージャーニーマップの違い：バリュージャーニーは「継続的な価値提供サイクル」を指す概念。カスタマージャーニーマップは「ユーザー体験の可視化ツール」です。この違いは試験で問われやすい点です。',
   },
   {
     id: 'ux-basics-014',
-    sectionId: 'ux-basics',
+    sectionId: 'ux-intelligence',
     question: 'UXデザイナーに求められるスキルとして含まれないものはどれか。',
     choices: [
       'ユーザーリサーチの実施・分析スキル',
@@ -244,10 +271,11 @@ export const QUESTIONS: Question[] = [
     correctIndex: 2,
     explanation:
       'UXデザイナーにはユーザーリサーチ・情報設計・IA・インタラクションデザイン・プロトタイピング・ユーザーテストなどのスキルが求められます。製造ラインの管理はUXデザイナーの職域には含まれません。',
+    tip: 'UXデザイナーに「必要ないもの」を問う問題では、製造・会計・法律・マーケティング戦略立案などが選択肢に含まれる場合があります。コアスキルであるリサーチ・設計・プロトタイピング・評価の4軸を押さえましょう。',
   },
   {
     id: 'ux-basics-015',
-    sectionId: 'ux-basics',
+    sectionId: 'ux-knowledge',
     question: 'Hassenzahl Modelが示すデザイナーとユーザーの視点の違いとして正しいものはどれか。',
     choices: [
       'デザイナーは見た目を重視し、ユーザーは機能を重視する',
@@ -258,10 +286,268 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'HassenzahlモデルではDesigner\'s perspectiveとUser\'s perspectiveを軸に、デザイナーが設計した製品属性（features）がユーザーに知覚され、Pragmatic quality（実用的品質）とHedonic quality（快楽的品質）を形成し、最終的なExperienceに至ります。',
+    tip: 'Hassenzahlモデルのキー：Pragmatic quality（実用的品質＝有用性・使いやすさ）とHedonic quality（快楽的品質＝刺激・自己表現）。両方が揃うとAttractivenessが高まり、良いUXにつながります。',
+  },
+
+  {
+    id: 'ux-intelligence-016',
+    sectionId: 'ux-intelligence',
+    question: 'バリュージャーニーとカスタマージャーニーマップの違いとして最も適切なものはどれか。',
+    choices: [
+      'カスタマージャーニーマップは現在の体験を描き、バリュージャーニーは未来の理想体験を描く',
+      'バリュージャーニーはデータを活用してユーザーへの継続的な価値提供サイクルを表し、カスタマージャーニーマップはユーザー体験の流れを可視化する分析ツールである',
+      'カスタマージャーニーマップはBtoC向け、バリュージャーニーはBtoB向けの概念である',
+      'バリュージャーニーとカスタマージャーニーマップは全く同じ概念である',
+    ],
+    correctIndex: 1,
+    explanation:
+      'バリュージャーニーはアフターデジタルの文脈で、データを活用してユーザーとの継続的な価値交換サイクルを回す概念です。カスタマージャーニーマップはユーザーの体験プロセスを可視化するデザイン・分析ツールです。',
+    tip: 'カスタマージャーニーマップは「ユーザー体験を把握するための分析ツール」。バリュージャーニーは「アフターデジタル時代における継続的価値提供の仕組み」。片方はツール、もう片方はビジネスの仕組みです。',
+  },
+  {
+    id: 'ux-intelligence-017',
+    sectionId: 'ux-intelligence',
+    question: 'サービスドミナントロジック（Service-Dominant Logic）の考え方として正しいものはどれか。',
+    choices: [
+      '製品（モノ）の価値は製造時に決まるという考え方',
+      '価値はサービスを通じた提供者と顧客の共創（Value Co-creation）によって生まれるという考え方',
+      'サービス業のみに適用できる経営理論',
+      '顧客は価値の受け取り手であり、価値創造には参加しないという考え方',
+    ],
+    correctIndex: 1,
+    explanation:
+      'サービスドミナントロジック（Vargo & Lusch提唱）では、価値はサービスを通じて顧客と提供者の相互作用によって共創されると捉えます。製品もサービスを提供するための手段と見なし、UXデザインの思想的基盤の一つです。',
+    tip: 'SDL（Service-Dominant Logic）は2004年にVargo & Luschが提唱。対となる概念は「グッズドミナントロジック（GDL）」＝モノの価値は生産時に決まるという旧来の考え方。UXは共創（Value Co-creation）の観点からSDLと強い親和性があります。',
+  },
+  {
+    id: 'ux-intelligence-018',
+    sectionId: 'ux-intelligence',
+    question: 'エクスペリエンスエコノミー（体験経済）の概念として最も適切なものはどれか。',
+    choices: [
+      '製品の機能と価格競争を中心とした経済のモデル',
+      'ユーザーに記憶に残る「体験」を提供することが価値の源泉となる経済のあり方',
+      'オンラインECを主軸にした新しい流通経済',
+      'ユーザーのデータ収集と分析を軸にした情報経済',
+    ],
+    correctIndex: 1,
+    explanation:
+      'エクスペリエンスエコノミー（Pine & Gilmore提唱）は、コモディティ→商品→サービス→体験の順に経済的価値が上昇するという概念です。単なる機能提供を超え、記憶に残る「体験」を設計することが競合優位につながります。',
+    tip: 'Pine & Gilmoreは1999年に「The Experience Economy」を発表。価値の4段階：コモディティ→商品（Goods）→サービス（Services）→体験（Experiences）。さらに次の段階として「変革（Transformations）」も提唱されています。',
+  },
+  {
+    id: 'ux-intelligence-019',
+    sectionId: 'ux-intelligence',
+    question: 'NPS（Net Promoter Score）の説明として正しいものはどれか。',
+    choices: [
+      '製品のユーザビリティを定量的に測定するスケール',
+      '「この製品・サービスを友人・知人にすすめたいか」を0〜10で尋ね、顧客ロイヤルティを測定する指標',
+      'Webサイトのアクセス数と直帰率から算出するサイトスコア',
+      '新規顧客獲得コスト（CAC）と顧客生涯価値（LTV）の比率',
+    ],
+    correctIndex: 1,
+    explanation:
+      'NPSはFred Reichheldが提唱した顧客ロイヤルティの指標です。「推奨者（9〜10点）の割合 - 批判者（0〜6点）の割合」で算出され、-100〜+100の値を取ります。UXやカスタマーサクセスの改善効果を測る代表的な指標の一つです。',
+    tip: 'NPSの計算：推奨者（9〜10点）の割合 − 批判者（0〜6点）の割合。7〜8点は「中立者（Passives）」でスコアに含まれない点に注意。アップルやネットフリックスがNPSを主要KPIとして活用したことで広く普及しました。',
+  },
+  {
+    id: 'ux-intelligence-020',
+    sectionId: 'ux-intelligence',
+    question: 'DX（デジタルトランスフォーメーション）とUXの関係として最も適切なものはどれか。',
+    choices: [
+      'DXは社内システムの刷新のみを指し、UXとは無関係である',
+      'DXはテクノロジーを活用してビジネスモデルを変革する取り組みであり、その中でユーザーにどのような体験を提供するかがUX設計の対象となる',
+      'UXはDXに包含される概念であり、UXなしにDXは成立しない',
+      'DXはBtoB企業のみの課題であり、BtoC企業にはUXの方が重要である',
+    ],
+    correctIndex: 1,
+    explanation:
+      'DXは単なるデジタル化（IT化）を超え、デジタル技術でビジネスモデルや組織・文化を根本から変革することを指します。ユーザーとの接点のデジタル化においては、体験の質を高めるUX設計が不可欠です。',
+    tip: 'DXとIT化の違いを押さえましょう。IT化はアナログ業務のデジタル化（例：紙の台帳をExcelに）。DXはテクノロジーでビジネスモデルや組織文化を根本から変革すること（例：紙の手続きをスマホアプリで完結）。UXはDXにおける顧客接点の体験設計として中核的役割を担います。',
+  },
+  {
+    id: 'ux-intelligence-021',
+    sectionId: 'ux-intelligence',
+    question: 'サブスクリプションモデルにおいてUXが特に重要な理由として最も適切なものはどれか。',
+    choices: [
+      '初期費用が低いため、初回購入のコンバージョン率のみが重要だから',
+      '継続利用・解約防止のためにユーザーが継続的に価値を感じ続けることが必要だから',
+      'サブスクリプションでは広告収入が主要収益源になるから',
+      '月額課金のため、機能数を増やして価格を正当化する必要があるから',
+    ],
+    correctIndex: 1,
+    explanation:
+      'サブスクリプションビジネスでは、初回獲得よりも継続率（リテンション）が収益に直結します。ユーザーが継続的に価値を感じ（カスタマーサクセス）、離脱しないようにするためにUXの継続的な改善が不可欠です。',
+    tip: 'サブスクの重要指標：MRR（月次経常収益）・チャーン率（解約率）・LTV（顧客生涯価値）・NPS。UXの改善がチャーン率を下げ、LTVを高めるという直接的な関係があります。オンボーディング体験の品質が継続率に特に大きく影響します。',
+  },
+  {
+    id: 'ux-intelligence-022',
+    sectionId: 'ux-intelligence',
+    question: 'プラットフォームビジネスにおける「ネットワーク効果」の説明として正しいものはどれか。',
+    choices: [
+      '利用者が増えるほどサーバーへの負荷が増大し、パフォーマンスが低下する現象',
+      '利用者が増えるほどプラットフォームの価値が高まり、さらに多くのユーザーを惹きつける相乗効果',
+      '特定のネットワーク事業者と提携することでのみ得られる顧客獲得効果',
+      '広告ネットワークを通じた収益化効果',
+    ],
+    correctIndex: 1,
+    explanation:
+      'ネットワーク効果とは、利用者数が増加するほどプラットフォームの価値が高まり、さらに多くのユーザーを引き寄せる好循環のことです。SNS・マーケットプレイス・フリマアプリなどのプラットフォームビジネスで見られます。',
+    tip: 'ネットワーク効果の2種類：直接的ネットワーク効果（同じ側のユーザーが増えるほど価値増大：電話・SNS）と間接的ネットワーク効果（異なる側のユーザーが増えるほど価値増大：マーケットプレイス・App Store）。後者を特に「クロスサイドネットワーク効果」と呼びます。',
+  },
+  {
+    id: 'ux-intelligence-023',
+    sectionId: 'ux-intelligence',
+    question: 'UXグロースにおいて「データのUX還元」が重要とされる理由として最も適切なものはどれか。',
+    choices: [
+      'データを収集して株主に公開することが義務付けられているから',
+      'ユーザーから収集したデータを分析し、そのインサイトをユーザー体験の改善に反映することで、継続的な価値向上が実現できるから',
+      'データは競合他社への対抗上、社内にのみ保持すべきだから',
+      'データを蓄積するほど、AIが自動的にUXを改善してくれるから',
+    ],
+    correctIndex: 1,
+    explanation:
+      'アフターデジタルの文脈での「データのUX還元」とは、ユーザーとの接点で収集したデータを単にビジネス利益のためだけでなく、ユーザー自身の体験価値向上に返していくことを指します。これがユーザーの信頼とロイヤルティを高めます。',
+    tip: 'データ活用の方向性として「企業のためのデータ活用」と「ユーザーへのデータ還元」を区別することが重要です。後者の例：購買履歴に基づくパーソナライズ提案、ユーザー自身の行動データの可視化（歩数・睡眠データなど）。',
+  },
+  {
+    id: 'ux-intelligence-024',
+    sectionId: 'ux-intelligence',
+    question: 'UXインテリジェンスにおける「UX選択の自由」の考え方として最も適切なものはどれか。',
+    choices: [
+      'ユーザーが製品の機能を自由にカスタマイズできること',
+      'テクノロジーとデータを活用してユーザー一人ひとりの選択肢を広げ、その人らしい意思決定・行動を可能にすること',
+      'ユーザーが競合サービスを自由に比較できる市場の透明性',
+      'デザイナーが制約なくクリエイティブな選択をできること',
+    ],
+    correctIndex: 1,
+    explanation:
+      'UXインテリジェンスが重視する「UX選択の自由」とは、データとテクノロジーの力でユーザー個人の状況・文脈に応じた選択肢を提供し、その人らしい行動や意思決定を実現できるよう支援することを指します。',
+    tip: 'UXインテリジェンスはux-basics-001の問題にも登場する核心概念。「監視資本主義（ショシャナ・ズボフ）」のように人を管理・誘導するデータ活用と対比させて覚えると理解が深まります。UX選択の自由は「その人らしさ」の実現を目指します。',
+  },
+  {
+    id: 'ux-intelligence-025',
+    sectionId: 'ux-intelligence',
+    question: 'リテールにおけるOMO戦略の事例として最も適切なものはどれか。',
+    choices: [
+      '実店舗を廃止してECサイトのみに移行すること',
+      'ECサイトでの購買データと実店舗での行動データを連携させ、オンライン・オフラインをまたいだパーソナライズ体験を提供すること',
+      '実店舗の商品をSNSで紹介するインフルエンサーマーケティング',
+      '店舗内の在庫管理システムをデジタル化すること',
+    ],
+    correctIndex: 1,
+    explanation:
+      'リテールにおけるOMO戦略は、ECと実店舗のデータを統合し、オンラインでの行動履歴・購買データを店舗スタッフが活用してパーソナライズされた接客を行うなど、チャネルをまたいだシームレスな体験を実現します。',
+    tip: 'OMO成功事例：中国のフーマーフレッシュ（アリババ）は、スマホで購入・実店舗でピックアップ・自宅配送を統合。アプリの購買データが店舗での接客に活用されるシームレスな体験を実現。日本ではユニクロのオムニチャネル戦略が参考になります。',
+  },
+  {
+    id: 'ux-intelligence-026',
+    sectionId: 'ux-intelligence',
+    question: 'UX担当者が「ビジネスの文脈」を理解することの重要性として最も適切なものはどれか。',
+    choices: [
+      '財務諸表が読めるようになることが主な目的である',
+      'ユーザー体験の改善をビジネス目標・KPIと結びつけ、組織にUX投資を正当化しやすくするため',
+      'ビジネスの専門家としてマーケティングや営業の代替ができるようにするため',
+      'ユーザーよりもビジネス側の要求を優先させるため',
+    ],
+    correctIndex: 1,
+    explanation:
+      'UX担当者がビジネスコンテキストを理解することで、UXの改善活動をビジネス指標（売上・リテンション率・NPSなど）と結びつけて説明でき、経営陣への説得力が増します。UX施策のROIを示せることが、UX投資の継続につながります。',
+    tip: 'UXのROIを示す主な指標：NPS・顧客獲得コスト（CAC）・チャーン率・タスク完了率・コンバージョン率など。「UXに投資する合理的な理由」を数字で示せることが、組織内でUXを推進する上で不可欠なスキルです。',
+  },
+  {
+    id: 'ux-intelligence-027',
+    sectionId: 'ux-intelligence',
+    question: 'SoR（System of Record）とSoE（System of Engagement）の違いとして正しいものはどれか。',
+    choices: [
+      'SoRは顧客向けシステム、SoEは社内業務システムを指す',
+      'SoRは業務データの記録・管理を担う基幹システムであり、SoEはユーザーとの関係構築・体験を中心に設計された顧客接点システムである',
+      'SoRはクラウド型システム、SoEはオンプレミス型システムを指す',
+      'SoRはBtoB向け、SoEはBtoC向けのシステム分類である',
+    ],
+    correctIndex: 1,
+    explanation:
+      'SoR（System of Record）は会計・人事・ERPなど正確な業務記録を目的とした基幹システムです。SoE（System of Engagement）はECサイト・スマートフォンアプリなど顧客との関係構築・体験を中心に設計されるシステムで、UXデザインの主な対象となります。',
+    tip: '近年はSoI（System of Insight）も注目されています。SoR（記録）→SoE（顧客接点）→SoI（AI・データ分析で洞察）の3層で企業ITを整理する考え方もあります。UXデザインの主な対象はSoEですが、SoIのデータがSoEの体験を向上させます。',
+  },
+
+  {
+    id: 'ux-knowledge-016',
+    sectionId: 'ux-knowledge',
+    question: 'アフォーダンス（Affordance）のUIデザインにおける意味として正しいものはどれか。',
+    choices: [
+      'ユーザーの行動を制限するデザインの仕組み',
+      'オブジェクトの形状や特性がユーザーに特定の操作方法を自然に示唆する性質',
+      'ユーザーの行動を事後に分析するデータ指標',
+      'デザインの視覚的な美しさを評価する基準',
+    ],
+    correctIndex: 1,
+    explanation:
+      'アフォーダンスとはJames J. Gibsonが提唱した概念で、環境やオブジェクトがユーザーに対してどのような操作が可能かを自然に示唆する性質を指します。ドアノブの形状がプッシュかプルかを示すように、UIデザインでもアフォーダンスを意識した設計が重要です。',
+    tip: 'GibsonのEcological Affordanceを設計に応用したのがDon Norman（「デザインと人間心理」著者）。Normanはこれを「perceived affordance（知覚されたアフォーダンス）」と呼び、Signifier（記号）・Mapping・Feedbackと合わせてGood Designの原則を提唱しました。',
+  },
+  {
+    id: 'ux-knowledge-017',
+    sectionId: 'ux-knowledge',
+    question: 'ピーク・エンドの法則（Peak-End Rule）の説明として正しいものはどれか。',
+    choices: [
+      'ユーザーはサービスを使い始めた直後の体験を最も強く記憶する',
+      '人は体験の合計や平均ではなく、最も強烈な瞬間（ピーク）と終わりの瞬間（エンド）を基準に全体の体験を評価する傾向がある',
+      '体験の長さが長いほど、体験全体の満足度が高くなる',
+      '体験の序盤と終盤の感情が一致するほど、満足度が高まる',
+    ],
+    correctIndex: 1,
+    explanation:
+      'ピーク・エンドの法則（カーネマン提唱）では、人は体験全体を通じた平均的な感情ではなく、最も感情が高まった瞬間（ピーク）と体験が終わった瞬間（エンド）の感情で全体を判断する傾向があります。UXデザインでは「最後の印象」を良くすることが特に重要です。',
+    tip: 'カーネマンの実験：低温の水に手を浸ける際、「短く辛い体験」より「長いが終わりがやや楽な体験」の方を選ぶ傾向があります。UXへの応用：オンボーディングのラスト・チェックアウト後のサンクスページ・解約フローの最後を丁寧にデザインすることが重要です。',
+  },
+  {
+    id: 'ux-knowledge-018',
+    sectionId: 'ux-knowledge',
+    question: 'メンタルモデル（Mental Model）のUIデザインへの活用として正しいものはどれか。',
+    choices: [
+      'デザイナー自身のシステムの理解をそのままUIに反映すること',
+      'ユーザーが頭の中で持つシステムへの期待・理解（メンタルモデル）に合わせてUIを設計すること',
+      'AIを使ってユーザーの思考パターンを予測すること',
+      'ユーザーのメンタルヘルスに配慮したデザインを行うこと',
+    ],
+    correctIndex: 1,
+    explanation:
+      'メンタルモデルとはユーザーがシステムの動作に対して持つ内的なイメージ・期待のことです。UIがユーザーのメンタルモデルに合致しているほど直感的に使いやすくなります。ギャップがあると混乱の原因となります。',
+    tip: 'メンタルモデルのギャップが多いUIは学習コストが高くなります。「ゴミ箱」アイコンでファイルを削除するのは現実の操作をメタファーにした例。ドン・ノーマンは「Conceptual Model（概念モデル）をユーザーのメンタルモデルに近づけること」を重要視しました。',
+  },
+  {
+    id: 'ux-knowledge-019',
+    sectionId: 'ux-knowledge',
+    question: 'WCAG（Web Content Accessibility Guidelines）が定める4つの原則（POUR）として正しいものはどれか。',
+    choices: [
+      '知覚可能（Perceivable）・操作可能（Operable）・理解可能（Understandable）・堅牢性（Robust）',
+      '使いやすい（Usable）・柔軟な（Flexible）・美しい（Beautiful）・信頼できる（Reliable）',
+      '高速な（Fast）・安全な（Secure）・シンプルな（Simple）・一貫した（Consistent）',
+      'アクセス可能（Accessible）・表示可能（Presentable）・応答可能（Responsive）・拡張可能（Scalable）',
+    ],
+    correctIndex: 0,
+    explanation:
+      'WCAGはW3Cが策定したWebアクセシビリティのガイドラインで、4原則はPOUR：Perceivable（知覚可能）・Operable（操作可能）・Understandable（理解可能）・Robust（堅牢性）です。Webコンテンツが障害者を含むすべての人に利用可能であるための国際基準を定めています。',
+    tip: 'WCAGの適合レベルはA（最低）・AA（標準）・AAA（最高）の3段階。日本の「JIS X 8341-3」はWCAGに対応したJIS規格。多くの政府・公共サービスではWCAG 2.1レベルAAへの準拠が求められています。POUR（ポア）と覚えましょう。',
+  },
+  {
+    id: 'ux-knowledge-020',
+    sectionId: 'ux-knowledge',
+    question: 'ユーザビリティとアクセシビリティの関係として最も適切なものはどれか。',
+    choices: [
+      'アクセシビリティはユーザビリティの一部であり、障害者向けの配慮に限定される',
+      'ユーザビリティは特定のユーザーが目標を効率的に達成できることを指し、アクセシビリティはより広い範囲のユーザー（障害者・高齢者など）が利用可能にすることを指す。両者は重なる部分もある',
+      'アクセシビリティの向上はユーザビリティを低下させるトレードオフの関係にある',
+      'ユーザビリティとアクセシビリティは同じ概念であり、区別する必要はない',
+    ],
+    correctIndex: 1,
+    explanation:
+      'ユーザビリティはユーザーが特定の目標を有効・効率・満足をもって達成できることを指します。アクセシビリティは障害の有無・年齢・環境に関わらずより多くの人が利用できることを指します。アクセシビリティの向上はしばしばユーザビリティ全体の向上にもつながります。',
+    tip: '「カーブカット効果」：歩道の段差解消は車いすユーザーだけでなく、ベビーカーや自転車にも便利です。同様にアクセシビリティ対応（代替テキスト・高コントラスト・キーボード操作対応）は結果的に全ユーザーの体験を向上させます。',
   },
 
   // ─────────────────────────────────────────────────────────
-  // SECTION 2: UXプロジェクト計画 (15問)
+  // SECTION 3: UXプロジェクト計画 (15問)
   // ─────────────────────────────────────────────────────────
   {
     id: 'ux-project-001',
@@ -272,6 +558,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 2,
     explanation:
       '参加型デザイン（Participatory Design）は、実際のユーザーや関係者がデザインプロセスに直接参加し、意思決定に関与できる人間中心デザインのアプローチです。スカンジナビアのワークデザイン運動に起源があります。',
+    tip: '参加型デザインのルーツは1970年代スカンジナビアの労働者が職場システム設計に参加する運動。現代のコデザイン（Co-design）やコクリエーション（Co-creation）の概念につながっています。ユーザーを「調査対象」ではなく「デザインパートナー」と見なす姿勢が重要です。',
   },
   {
     id: 'ux-project-002',
@@ -286,6 +573,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'ISO9241-210のHCDサイクルは「計画→利用状況の把握→ユーザー要求事項の明確化→設計解決策の作成→要求事項への適合評価」のプロセスで、まず現在の利用状況を理解・把握することから始まります。',
+    tip: 'HCDサイクルの4ステップを順番で覚えましょう：①利用状況の理解と把握→②ユーザーと組織の要求事項の明確化→③設計解決策の作成→④要求事項に対する設計の評価。このサイクルを繰り返すことが重要です。',
   },
   {
     id: 'ux-project-003',
@@ -300,6 +588,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'ダブルダイヤモンドは「発見（Discover）→定義（Define）→開発（Develop）→実装（Deliver）」の4フェーズで構成されます。最初のダイヤモンドは発散（探索）と収束（定義）による問題の発見と定義を担います。',
+    tip: 'ダブルダイヤモンドは英国デザイン協会（British Design Council）が2005年に提唱。各ダイヤモンドは「発散→収束」を表します。「正しい問題を見つける」第一ダイヤモンドと「正しい解決策を作る」第二ダイヤモンドという2つの目的が核心です。',
   },
   {
     id: 'ux-project-004',
@@ -309,6 +598,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 2,
     explanation:
       'スタンフォードd.schoolによるデザイン思考の5ステップは「共感（Empathize）→定義（Define）→アイデア創出（Ideate）→プロトタイプ（Prototype）→テスト（Test）」です。「実装（Implement）」はステップ名として含まれません。',
+    tip: 'd.schoolの5ステップ頭文字：Empathize・Define・Ideate・Prototype・Test（EDICT）。「実装（Implement）」はステップに含まれない点が試験で狙われやすいです。非線形プロセスで、各ステップを行き来しながら進めます。',
   },
   {
     id: 'ux-project-005',
@@ -319,6 +609,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 2,
     explanation:
       'スクラムにおけるスプリントは、通常1〜4週間（一般的には2週間）の固定された開発サイクルです。各スプリントで動作するソフトウェアのインクリメントを完成させます。',
+    tip: 'スクラムの用語整理：Sprint（反復開発サイクル）・Sprint Planning（計画）・Daily Scrum（日次15分MTG）・Sprint Review（成果物レビュー）・Sprint Retrospective（プロセス振り返り）。Sprint ReviewとRetrospectiveの違いを混同しないよう注意。',
   },
   {
     id: 'ux-project-006',
@@ -333,6 +624,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'スクラムマスターはスクラムプロセスの推進役であり、チームがスクラムの価値観・原則・慣行を理解・実践できるよう支援し、チームが直面する障害（Impediment）を取り除く役割を担います。',
+    tip: 'スクラムの3つのロール：Product Owner（プロダクトの優先順位を決める）・Scrum Master（プロセスを支援し障害を除去する）・Development Team（開発者）。スクラムマスターはマネージャーではなく「サーバントリーダー（Servant Leader）」です。',
   },
   {
     id: 'ux-project-007',
@@ -347,6 +639,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 2,
     explanation:
       'リーンスタートアップ（Eric Ries提唱）は「Build（構築）→Measure（計測）→Learn（学習）」のサイクルを高速に繰り返すことで、不確実性の高い環境でも効率的に事業を成長させることを目指します。',
+    tip: 'Eric Riesの「The Lean Startup」（2011）が出典。BMLループ（Build-Measure-Learn）が核心。MVP（Minimum Viable Product）はこのループを最小コストで高速に回すための概念です。トヨタ生産方式の「ムダの排除」思想が源流にあります。',
   },
   {
     id: 'ux-project-008',
@@ -361,6 +654,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'MVPとはEric Riesが提唱した概念で、ユーザーの反応から学習するために必要最小限の機能を持つ製品のことです。完成品ではなく「学ぶための道具」として位置づけられます。',
+    tip: 'MVPは「完成品の小さい版」ではなく「仮説を検証するための最小の実験」。DropboxのMVPは動画説明だけのランディングページで、ニーズがあるかを検証しました。Amazonは書籍のみを売るサイトとしてMVPをスタートさせています。',
   },
   {
     id: 'ux-project-009',
@@ -375,6 +669,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'リーンUXはJeff Gothelf提唱の手法で、仮説（Hypothesis）を立て、最小限の成果物でユーザーと検証し、学習しながらアジャイル開発の中でUXデザインを進めます。チーム全員が共同でUXを担う点が特徴です。',
+    tip: 'Jeff Gothelfの「Lean UX」（2013）。仮説キャンバスを使って仮説を明示化し、最小限の成果物で検証します。「アウトプット（ドキュメント・仕様書）からアウトカム（成果・学習）へ」の転換が重要なメッセージです。',
   },
   {
     id: 'ux-project-010',
@@ -389,6 +684,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'HCDにおける共創は、ユーザーや多様なステークホルダーが設計プロセスに参加することで、より実態に即した課題発見と解決策の創出が可能になるためです。',
+    tip: '共創（Co-creation）の代表的な手法：参加型デザインワークショップ・フューチャーセッション・コデザインセッション。ユーザーを「調査対象」ではなく「デザインパートナー」と位置づけることが特徴です。多様な視点が集まることで、単独では気付かない解決策が生まれます。',
   },
   {
     id: 'ux-project-011',
@@ -404,6 +700,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'ウォーターフォールは要件定義→設計→実装→テストの各フェーズを順次完了させる手法です。アジャイルは短いスプリントを繰り返し、継続的にユーザーフィードバックを取り込みながら開発します。',
+    tip: 'ウォーターフォールが有効な場面：要件が固定・変化が少ない・リスク管理が重要な大規模プロジェクト（建設・航空機開発など）。アジャイルが有効な場面：不確実性が高い・ユーザーFBを継続的に取り込む必要があるソフトウェア開発。どちらが優れているかではなく「適した場面」の違いです。',
   },
   {
     id: 'ux-project-012',
@@ -418,6 +715,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'レトロスペクティブはスプリントの最後に行うチームの振り返りで、「何がうまくいったか」「何を改善すべきか」を議論し、次のスプリントに向けた改善策を合意します。',
+    tip: 'レトロスペクティブの代表的フレームワーク：KPT（Keep/Problem/Try）・Fun/Done/Learn・4Ls（Liked/Learned/Lacked/Longed for）など。Sprint Review（成果物をステークホルダーに見せる）とRetrospective（チームのプロセスを振り返る）の違いを混同しないよう注意。',
   },
   {
     id: 'ux-project-013',
@@ -432,6 +730,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'パーパスは組織が「なぜ存在するのか」という存在意義を示すもので、利益追求を超えた社会的意義を表します。ミッションは組織が果たすべき使命・役割を表し、パーパスよりも具体的な行動指針を示します。',
+    tip: '組織の方向性を示す概念の階層：パーパス（なぜ存在するか）→ミッション（何をするか）→ビジョン（どんな状態を目指すか）→バリュー（どう行動するか）。パーパスドリブン経営（Patagonia・Nestleなど）はUXデザインの目標設定にも影響します。',
   },
   {
     id: 'ux-project-014',
@@ -447,6 +746,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'XP（Extreme Programming）はKent Beckが提唱したアジャイル開発手法で、ペアプログラミング・テスト駆動開発（TDD）・継続的インテグレーションなどのエンジニアリング実践を重視します。',
+    tip: 'XPのプラクティス：ペアプログラミング・TDD（テスト駆動開発）・継続的インテグレーション・コードのリファクタリング・小さなリリース。「最も重要なことを極端に行う（Extreme）」という思想から命名されました。UXとXPを組み合わせた「XD（Extreme Design）」という手法も存在します。',
   },
   {
     id: 'ux-project-015',
@@ -456,10 +756,11 @@ export const QUESTIONS: Question[] = [
     correctIndex: 2,
     explanation:
       'ユニバーサルデザインの7原則は「公平性・柔軟性・単純で直感的な使用・知覚できる情報・誤りへの許容・少ない身体的努力・接近と使用のための大きさと空間」です。「カスタマイズ性の最大化」は含まれません。',
+    tip: 'ユニバーサルデザイン（Ronald Maceら提唱）はアクセシビリティより広い概念で、障害者に限定せずすべての人を対象にします。7原則の頭文字：公・柔・単・知・誤・少・接。建築・製品・情報など幅広い分野に適用されます。',
   },
 
   // ─────────────────────────────────────────────────────────
-  // SECTION 3: ユーザー理解 (14問)
+  // SECTION 4: ユーザー理解 (14問)
   // ─────────────────────────────────────────────────────────
   {
     id: 'user-understanding-001',
@@ -470,6 +771,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 3,
     explanation:
       'Nielsenが定義したユーザビリティの5要素は「学習容易性（Learnability）・効率性（Efficiency）・記憶容易性（Memorability）・間違えにくさ（Errors）・満足度（Satisfaction）」です。',
+    tip: '5要素の英語頭文字：L・E・M・E・S（LEMES）。試験では「間違えにくさ（Errors）」の定義—エラー発生率の低さだけでなくエラー回復のしやすさも含む—が問われることがあります。ISO 9241-11の3要素（有効さ・効率・満足度）と混同しないよう注意。',
   },
   {
     id: 'user-understanding-002',
@@ -485,6 +787,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 0,
     explanation:
       'PMF（プロダクトマーケットフィット）とは、製品・サービスが市場のニーズと適合し、顧客から受け入れられている状態を指します。スタートアップにとっての重要なマイルストーンです。',
+    tip: 'スタートアップの成長段階：PSF（Problem-Solution Fit）→PMF（Product-Market Fit）→Scale。PMFに達したサインは「ユーザーが口コミで広める・解約しない・積極的に勧める」こと。Sean Ellisの「40%テスト」（失ったら困ると答えるユーザーが40%以上ならPMF達成）が有名です。',
   },
   {
     id: 'user-understanding-003',
@@ -499,6 +802,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 2,
     explanation:
       'ナッジ（Nudge）はThaler & Sunstein提唱の概念で、強制せずに選択肢の見せ方や環境設計を変えることで、ユーザーが自然と望ましい行動を選べるよう促す手法です。',
+    tip: 'Thaler & Sunsteinの「Nudge」（2008）が出典。デフォルト設定の変更がナッジの典型例（臓器提供のオプトアウト→オプトイン）。UIでは初期設定・選択肢の並び順・確認画面の設計にナッジ理論が活用されます。Thalerは2017年にノーベル経済学賞を受賞。',
   },
   {
     id: 'user-understanding-004',
@@ -513,6 +817,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'ヤコブの法則はJakob Nielsenが提唱した法則で、ユーザーはよく知っている他のサービスと同じように動くことを期待するため、一般的なUXパターンに従うことが重要です。',
+    tip: 'ヤコブの法則の実践的含意：独自のUIパターンを採用する際は学習コストが上がることを意識する。「革新的なUI」はユーザーに新しい学習を強いるリスクがあります。Googleの検索UIが長年ほぼ変わらないのはこの法則の実践例です。',
   },
   {
     id: 'user-understanding-005',
@@ -527,6 +832,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'ヒックの法則は「意思決定にかかる時間は、選択肢の数と複雑さによって増加する」という法則です。UIデザインにおいて、選択肢を絞り込むことでユーザーの認知負荷を下げることができます。',
+    tip: 'ヒックの法則（Hick-Hyman Law）の数式：T = b × log₂(n+1)。選択肢数(n)が増えるほど対数的に時間が増加します。ナビゲーション設計での応用：メニュー項目は適切に絞り込み、階層化することが重要です。「選択のパラドックス（Barry Schwartz）」とも関連します。',
   },
   {
     id: 'user-understanding-006',
@@ -541,6 +847,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 0,
     explanation:
       '美的ユーザビリティ効果とは、視覚的に美しいデザインはユーザビリティが高いと感じられやすい現象です。また、見た目の良いデザインはユーザーの問題解決への寛容度を高める効果もあります。',
+    tip: '美的ユーザビリティ効果は1995年にHitachi Design Centerの研究者によって初めて実証されました。注意点：美しさがユーザビリティの問題を隠す場合があります。「見た目がきれいだから使いやすいに違いない」という思い込みがテスト時のバイアスになることもあります。',
   },
   {
     id: 'user-understanding-007',
@@ -555,6 +862,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       '近接の法則（Law of Proximity）は、空間的に近い位置にある要素同士は関連していると知覚されるゲシュタルト原則のひとつです。UIデザインでは、関連する要素をグループ化する際に活用されます。',
+    tip: 'ゲシュタルト原則の主要な種類：近接（Proximity）・類同（Similarity）・閉合（Closure）・連続（Continuity）・図地分離（Figure/Ground）・対称性（Symmetry）など。UIデザインで最もよく使われるのは近接と類同です。フォームデザインやカードUIで特に重要。',
   },
   {
     id: 'user-understanding-008',
@@ -569,6 +877,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'エスノグラフィーは文化人類学由来の調査手法で、ユーザーの日常的な環境でフィールドワークを行い、実際の行動・文脈・暗黙知などを観察によって明らかにします。',
+    tip: 'UXリサーチでのエスノグラフィー：職場や家庭にフィールドワークに行き、ユーザーを観察・インタビューします。コンテキスチュアルインクワイアリーはエスノグラフィーをUXリサーチに応用したもの。「言うこと」ではなく「すること」を観察することが本質です。',
   },
   {
     id: 'user-understanding-009',
@@ -583,6 +892,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'カーネマン&トヴェルスキーのプロスペクト理論によれば、人は同じ大きさの利得と損失では、損失の方が約2倍大きく感じます（損失回避）。UIデザインやマーケティングにおいて重要な知見です。',
+    tip: 'プロスペクト理論のUI活用例：「3日間の無料トライアル終了のお知らせ」は損失を避ける行動（継続契約）を促すフレーミング。「今すぐ申し込めば○○が無料」より「今申し込まないと○○を失います」の方が行動を促しやすいという理論的根拠です。',
   },
   {
     id: 'user-understanding-010',
@@ -597,6 +907,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'アクセシビリティとは、障害者・高齢者・様々な利用環境のユーザーを含むすべての人が、製品やサービスを利用できるように設計することです。WebアクセシビリティはWCAGガイドラインで基準が定められています。',
+    tip: 'Webアクセシビリティの4原則（POUR）：Perceivable（知覚可能）・Operable（操作可能）・Understandable（理解可能）・Robust（堅牢性）。日本では2024年に改正障害者差別解消法が施行され、民間企業もアクセシビリティ対応の合理的配慮が求められています。',
   },
   {
     id: 'user-understanding-011',
@@ -611,6 +922,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 0,
     explanation:
       'ISO9241-11ではユーザビリティを「特定のユーザーが特定の目標を達成するにあたって、有効さ（Effectiveness）・効率（Efficiency）・満足度（Satisfaction）をもって利用できる度合い」と定義しています。',
+    tip: 'ISO9241-11の3要素（有効さ・効率・満足度）とNielsenの5要素（Learnability・Efficiency・Memorability・Errors・Satisfaction）はそれぞれ異なる定義体系です。ISO定義は「特定ユーザーが特定目標を達成する文脈」を強調する点が特徴です。',
   },
   {
     id: 'user-understanding-012',
@@ -625,6 +937,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'PSF（プロブレムソリューションフィット）は、ターゲットとするユーザーの課題に対して、自社の解決策がしっかりと対応できているかを確認する概念です。PMFの前段階として位置づけられます。',
+    tip: 'PSF確認の方法：ランディングページテスト（実装前に概念を公開して反応を見る）・プロトタイプ検証・インタビューなど。「この問題は本当に解決する価値があるか？」を確認するPSFが、PMF（市場適合）より先に来ます。',
   },
   {
     id: 'user-understanding-013',
@@ -639,6 +952,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 3,
     explanation:
       '認知負荷とはユーザーが情報処理に費やす精神的負担のことです。一画面に全機能を表示することは情報過多となり、認知負荷を増大させます。グルーピング・選択肢削減・デフォルト設定は認知負荷を下げる有効な手法です。',
+    tip: '認知負荷理論（Sweller）の3種類：Intrinsic（課題自体の複雑さ）・Extraneous（不必要な情報による余分な負荷）・Germane（学習や理解のための処理）。UIデザインではExtraneous（余分な）認知負荷を下げることが最重要です。',
   },
   {
     id: 'user-understanding-014',
@@ -653,6 +967,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'アンカリング効果は、最初に提示された数字や情報（アンカー）が基準点となり、その後の判断や評価に引きずられる認知バイアスです。価格設定やUIデザインに応用されています。',
+    tip: 'アンカリング効果のUI活用例：定価を先に表示してから割引価格を見せる（価格知覚の操作）・プランの「おすすめ」表示で中間価格をアンカーにする。Kahneman & Tverskyの研究で実証。「松竹梅」の3段階価格設定で「竹」が選ばれやすいのは「極端の回避性（Compromise Effect）」と組み合わさった事例です。',
   },
 
   // ─────────────────────────────────────────────────────────
@@ -672,6 +987,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 3,
     explanation:
       'ユーザー調査は開発プロセスの特定のフェーズだけでなく、各節目（要件定義・設計・評価など）で継続的に実施することが重要です。定量・定性を組み合わせ、開発後も継続的な調査が必要です。',
+    tip: 'ユーザー調査を継続的に行う考え方を「継続的ディスカバリー（Continuous Discovery）」と呼びます。Teresa Torres提唱。製品リリース後も「使っている？」「何が障壁？」を定期的に確認することが、UX改善の基盤になります。',
   },
   {
     id: 'user-requirements-002',
@@ -682,6 +998,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 0,
     explanation:
       'カスタマージャーニーマップは、顧客が製品・サービスを認知してから購入・利用に至るまでの体験の流れを、タッチポイント・感情・行動などの観点で可視化した図です。',
+    tip: 'カスタマージャーニーマップに含まれる主な要素：フェーズ・タッチポイント・ユーザーの行動・感情の浮き沈み（感情曲線）・課題/機会。As-Is（現状）とTo-Be（理想）の2種類があります。「旅」全体を俯瞰できるため、部門をまたぐ課題の特定に有効です。',
   },
   {
     id: 'user-requirements-003',
@@ -697,6 +1014,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'コンテキスチュアルインクワイアリーは、調査者がユーザーの職場や自宅などの実際の作業環境を訪問し、自然な状況での行動を観察しながらインタビューを行う定性調査手法です。「マスターと見習い（徒弟）」の関係に例えられ、ユーザーが言語化しにくい暗黙知や実際の行動パターンを発見するのに適しています。',
+    tip: 'コンテキスチュアルインクワイアリーの4原則：Context（現場で行う）・Partnership（師弟関係で対話する）・Interpretation（観察を解釈して確認する）・Focus（調査目的に焦点を当てる）。Beyer & Holtzblattが体系化。「なぜそうしたの？」を現場で聞けるのが最大の強みです。',
   },
   {
     id: 'user-requirements-004',
@@ -711,6 +1029,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       '定量調査（アンケートなど）は数値データの収集と統計分析を目的とし「どのくらい」に答えます。定性調査（インタビュー・観察など）はユーザーの行動理由や経験の深い理解を目的とし「なぜ」に答えます。',
+    tip: '定量・定性の使い分けの鉄則：「何が・どのくらい起きているか（What/How much）」→定量。「なぜ・どのように起きているか（Why/How）」→定性。最も効果的なのは混合法（Mixed Methods）で、両方を組み合わせて使います。定量で「課題を発見」、定性で「原因を深掘り」するのが典型的な流れです。',
   },
   {
     id: 'user-requirements-005',
@@ -725,6 +1044,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'ペルソナはユーザーリサーチのデータに基づいて作成した架空の典型的ユーザー像です。名前・年齢・行動パターン・目標・フラストレーションなどを含む具体的なキャラクターとして表現され、設計の意思決定に活用されます。',
+    tip: 'ペルソナの種類：定性調査から作るリサーチベースペルソナ（最も信頼性が高い）・仮説ベースのプロトペルソナ（リサーチ前の早期段階）。「このペルソナは〇〇しない」と設計を断る判断軸になることがペルソナの重要な使い方です。アラン・クーパーが「About Face」で体系化しました。',
   },
   {
     id: 'user-requirements-006',
@@ -739,6 +1059,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'エンパシーマップはユーザーへの共感を深めるためのフレームワークで、一般的に「Think/Feel（考える・感じる）」「Hear（聞く）」「See（見る）」「Say/Do（言う・行動する）」「Pain（悩み）」「Gain（得たいもの）」などの観点を整理します。',
+    tip: 'エンパシーマップはデイブ・グレイ（Dave Gray）が開発し、バリュープロポジションキャンバスにも組み込まれています。カスタマージャーニーマップの前段階として、特定のペルソナの内面を深く理解するために使います。ワークショップで付箋を使って共同作成すると、チームの共感力が一気に高まります。',
   },
   {
     id: 'user-requirements-007',
@@ -753,6 +1074,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 2,
     explanation:
       'JTBD理論（Clayton Christensenら提唱）では、ユーザーは製品を購入するのではなく、自分の生活の中の「こなすべきジョブ（仕事）」を片付けるために製品・サービスを雇うと考えます。',
+    tip: 'JTBDの有名な例：「ドリルを買う人が欲しいのはドリルではなく穴、さらに言えば絵を飾りたい・家をきれいにしたいという体験」（Theodore Levitt）。JTBDには機能的ジョブ（Functional）・社会的ジョブ（Social）・感情的ジョブ（Emotional）の3層があります。ペルソナと組み合わせると設計の解像度が上がります。',
   },
   {
     id: 'user-requirements-008',
@@ -767,6 +1089,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'KJ法は文化人類学者の川喜田二郎が開発した情報整理法で、インタビューや観察で得た定性データをカードに書き出し、関連するものをグルーピングし、グループ間の関係を図解することで課題の構造を明らかにします。',
+    tip: 'KJ法の手順：①データをカードに1件1枚で書き出す → ②親近感でグルーピング → ③グループに表札（ラベル）をつける → ④グループ間の関係を図解。アフィニティダイアグラム（Affinity Diagram）は英語圏でのほぼ同義の手法名です。ユーザーインタビュー後の分析フェーズで広く使われます。',
   },
   {
     id: 'user-requirements-009',
@@ -781,6 +1104,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'ダイアリー法はユーザーが一定期間にわたって自分の体験・行動・感情を日記形式で記録する調査手法です。ユーザーの自然な日常生活でのデータが得られ、時間経過に伴う体験の変化を捉えるのに適しています。',
+    tip: 'ダイアリー法の特徴：調査者が不在でも自然な状況のデータが得られる（観察者効果を避けられる）・長期間の体験変化を追える。欠点：記録漏れ・記憶の歪みが起きやすい。モバイルデバイスを活用したESM（Experience Sampling Method）は「今この瞬間」を記録させることで記憶の歪みを減らします。',
   },
   {
     id: 'user-requirements-010',
@@ -795,6 +1119,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'バリュープロポジションとは、ターゲットとするユーザー・顧客の課題や欲求に対して、自社製品・サービスが提供する独自の価値（価値提案）を定義したものです。「なぜ競合ではなく我々を選ぶのか」を明確にします。',
+    tip: 'バリュープロポジションキャンバス（Osterwalder）：右側に顧客プロフィール（Customer Jobs・Pains・Gains）、左側に価値マップ（Products/Services・Pain Relievers・Gain Creators）を整理し、「フィット」しているかを確認するフレームワーク。PSF（Problem-Solution Fit）達成の判断ツールとしても使えます。',
   },
   {
     id: 'user-requirements-011',
@@ -809,6 +1134,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'ユーザーストーリーマッピング（Jeff Patton提唱）は、ユーザーの行動をバックボーンとウォーキングスケルトンで地図状に整理し、MVP・リリース計画・優先順位付けを行うための手法です。',
+    tip: 'ユーザーストーリーマッピングの構造：横軸（左→右）= ユーザーの活動フロー・縦軸（上→下）= 重要度・優先度。最上段のバックボーンがユーザーの主要な行動、その下に詳細なストーリーを並べます。水平線で「MVPライン」を引くと、リリースバージョンの境界が見えやすくなります。',
   },
   {
     id: 'user-requirements-012',
@@ -823,6 +1149,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 0,
     explanation:
       '意識データ（態度データ）はアンケートやインタビューでユーザーが語る意見・態度・意向です。行動データはアクセスログ・クリックデータ・購買履歴など実際の行動の記録です。ユーザーが「言うこと」と「すること」はしばしば異なります。',
+    tip: '「言うこと（Say）」と「すること（Do）」のギャップはUXリサーチの核心的課題です。例：「プライバシーは重要」と言いながら個人情報を簡単に提供するユーザー行動（Privacy Paradox）。意識データだけを信じると設計が現実から外れます。行動データと意識データを両方使う「トライアンギュレーション（三角測量法）」が信頼性を高めます。',
   },
   {
     id: 'user-requirements-013',
@@ -837,6 +1164,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'UXカーブはFinnishデザイン手法のひとつで、ユーザーが製品と関わる中での感情的体験の変化を時間軸に沿って曲線で表します。過去の体験を振り返る定性調査の手法として使われます。',
+    tip: 'UXカーブはフィンランドのAalto大学で開発されました。縦軸が感情的評価（ポジティブ〜ネガティブ）、横軸が時間軸で、ユーザーが曲線を自分で描きます。カスタマージャーニーマップが全体フローを可視化するのに対し、UXカーブは感情の変化に特化した手法です。長期利用体験の調査に特に有効です。',
   },
   {
     id: 'user-requirements-014',
@@ -851,6 +1179,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 2,
     explanation:
       'To-Beジャーニーは、現状（As-Is）の課題を踏まえた上で、ユーザーにとっての理想的な体験の流れを描いたカスタマージャーニーマップです。設計目標の設定や改善方向性の合意形成に活用されます。',
+    tip: 'As-Is（現状）ジャーニーとTo-Be（理想）ジャーニーの使い分け：As-Isは「現状の問題点を可視化するため」に使い、To-Beは「改善後のビジョンを合意するため」に使います。ステークホルダーとの合意形成では、先にAs-Isで現状の痛みを共感させてからTo-Beを提示すると説得力が高まります。',
   },
 
   // ─────────────────────────────────────────────────────────
@@ -869,6 +1198,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 2,
     explanation:
       'プロトタイプは「何を検証したいか」という目的に合わせて作成します。垂直プロトタイプ（特定機能を深く）・水平プロトタイプ（全体を浅く）など、目的に応じて作り込む箇所とダミーにする箇所を意図的に分けることが重要です。',
+    tip: 'プロトタイプの忠実度（Fidelity）の種類：Low-Fi（紙・スケッチ）→ Mid-Fi（ワイヤーフレーム）→ High-Fi（実際のUIに近い）。「早い段階では低忠実度、後半は高忠実度」が基本ですが、何を検証するかによって使い分けます。高忠実度すぎるプロトタイプはフィードバックがビジュアルに偏りがちです。',
   },
   {
     id: 'ux-design-impl-002',
@@ -883,6 +1213,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'ブレインストーミングの基本ルールは「批判禁止・自由奔放・質より量・結合改善」の4原則です。他人のアイデアを否定せず、質より量を重視することで自由な発想を促します。',
+    tip: 'ブレインストーミングの4原則（Alex Osborn考案）：①判断や批判は後回しにする ②奇抜なアイデアを歓迎する ③アイデアの量を重視する ④アイデアを組み合わせ・発展させる。「How Might We（〜するにはどうすれば？）」という問いかけで始めると発想が広がりやすいです。',
   },
   {
     id: 'ux-design-impl-003',
@@ -898,6 +1229,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'カードソートはIA設計のための調査手法です。オープンカードソートでは参加者がカテゴリを自由に作成し、クローズドカードソートでは事前に用意したカテゴリにカードを分類します。',
+    tip: 'カードソートの使い分け：オープン→新規IA設計・ユーザーのメンタルモデル理解に使う。クローズド→既存IAの検証・ナビゲーション構造の適切さ確認に使う。ハイブリッド型（一部カテゴリ固定）もあります。Optimal Workshopなどのオンラインツールで遠隔実施も可能です。',
   },
   {
     id: 'ux-design-impl-004',
@@ -912,6 +1244,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'ピーター・モービルとルー・ローゼンフェルドの定義によれば、IAは「組織化システム（Organization）・ラベリングシステム（Labeling）・ナビゲーションシステム（Navigation）・検索システム（Search）」の4要素で構成されます。',
+    tip: 'IAの4システム（Morville & Rosenfeld「Information Architecture」）：Organization（情報の分類・グループ化）・Labeling（カテゴリやリンクの名前付け）・Navigation（移動の仕組み）・Search（探す仕組み）。カードソートはOrganizationとLabelingの設計に使い、ツリーテストはNavigationを検証します。',
   },
   {
     id: 'ux-design-impl-005',
@@ -926,6 +1259,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'ワイヤーフレームは視覚デザイン（色・画像など）を省き、画面の構成要素・レイアウト・情報の配置を「骨格（線と四角）」で表した設計図です。画面構造の設計・合意形成に使われます。',
+    tip: 'デザインの5段階（Jesse James Garrett）：戦略→スコープ→構造→骨格→表層。ワイヤーフレームは「骨格（Skeleton）」層に相当します。ユーザーフロー（構造）が決まった後、ビジュアルデザイン（表層）に移る前の段階で作ります。グレースケールで作ることで、ビジュアルへの議論が逸れるのを防げます。',
   },
   {
     id: 'ux-design-impl-006',
@@ -940,6 +1274,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'ローファイプロトタイプは紙・付箋・ホワイトボードなどを使って素早く安価に作成できる低精度のプロトタイプです。アイデアの素早い検証や概念の共有に適しています。',
+    tip: 'ローファイとハイファイの使い分けの鉄則：「変更コストが低いうちに多く失敗する」。ローファイは「こういう方向性でどう？」という大枠の合意取りに、ハイファイは「細部の使い勝手や視覚的印象はこれでOK？」という最終確認に使います。ローファイを飛ばしてハイファイから始めると、設計の大きな方向性の修正が後戻り困難になります。',
   },
   {
     id: 'ux-design-impl-007',
@@ -954,6 +1289,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       '水平プロトタイプは製品の全体的な機能の幅をカバーしますが、各機能の実装は表面的・浅いものにとどめます。対して垂直プロトタイプは特定の機能を深く実装します。Tプロトタイプはこれらを組み合わせたものです。',
+    tip: 'プロトタイプの方向性の覚え方：水平（Horizontal）=「広く浅く」全体像を確認。垂直（Vertical）=「狭く深く」特定機能の詳細を検証。T字型（T-shaped）=幅広いカバレッジ＋特定機能の深い実装。目的に応じて使い分け：UXのフローを確認したい→水平、コアな機能体験を検証したい→垂直。',
   },
   {
     id: 'ux-design-impl-008',
@@ -968,6 +1304,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'オズの魔法使い法は、裏側で人間が手動で応答・操作しているのに、ユーザーには自動化されたシステムであるかのように見せながらテストを行う手法です。実装コストをかけずにシステムの動作を模擬できます。',
+    tip: 'オズの魔法使い法の名前の由来：映画「オズの魔法使い」で、壮大に見える魔法使いが実はカーテンの裏の小さな老人だったことから。AIやチャットボット・音声インターフェースの検証に特に有効です。「裏側でオペレーターが手動応答→ユーザーはAIと話していると思っている」という状況で使われます。',
   },
   {
     id: 'ux-design-impl-009',
@@ -982,6 +1319,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'UXライティングはボタンラベル・エラーメッセージ・空状態の文言など、製品内のユーザー体験を最適化するための文章を担います。コピーライティングは主に広告や販促物における説得・購買促進を目的とした文章作成です。',
+    tip: 'UXライティングの原則（Google Material Design）：Clear（明確）・Concise（簡潔）・Useful（役立つ）。最も重要なUXライティングの場面：①エラーメッセージ（何が起きたか・どうすれば解決するか）②空状態（コンテンツがない時の文言）③CTAボタン（「送信」より「資料をダウンロードする」のように具体的な動詞）。',
   },
   {
     id: 'ux-design-impl-010',
@@ -996,6 +1334,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'マイクロコピーはフォームのプレースホルダー・ボタンのラベル・バリデーションメッセージ・ツールチップなど、UIの細部に配置される短い文言です。ユーザーの行動を適切に導く重要な役割を果たします。',
+    tip: 'マイクロコピーが特に重要な場面：フォームのプレースホルダー（「例：yamada@example.com」）・バリデーションエラー（「無効な形式」ではなく「メールアドレスには@が必要です」）・確認ダイアログ（「OK/キャンセル」ではなく「削除する/やめる」）。小さな文言の改善がコンバージョン率を大きく変えることがあります。',
   },
   {
     id: 'ux-design-impl-011',
@@ -1010,6 +1349,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'シナリオ法では、ペルソナが特定の目標を達成するためにどのような文脈・状況で製品を使うかを物語（シナリオ）として描きます。ユーザーの利用文脈を設計チームで共有し、設計の意思決定に活用します。',
+    tip: 'シナリオ法の種類：現在シナリオ（現状の問題を記述）→コンセプトシナリオ（新しい解決策の方向性）→ユースケース（具体的な操作フロー）。ユースケースはUML表記でシステム設計に使われますが、UXシナリオは「感情」や「文脈」を含む物語形式が特徴です。',
   },
   {
     id: 'ux-design-impl-012',
@@ -1024,6 +1364,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'ペーパープロトタイプは紙と鉛筆で作成できるため、極めて低コスト・短時間で作成・修正ができます。プロジェクトの早期段階でアイデアを素早く形にし、チーム内やユーザーとの検証に活用できます。',
+    tip: 'ペーパープロトタイプの意外な力：高品質に見えるデジタルプロトタイプより「率直なフィードバック」が得られやすい。ユーザーは「もし変えるなら…」と遠慮なく言えます。サニーヴェール（Sunnyvale）IBM研究所のビル・バクストン（Bill Buxton）は「早く失敗するために描く」という考え方でスケッチを重視しました。',
   },
   {
     id: 'ux-design-impl-013',
@@ -1038,6 +1379,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       '導線設計とは、ユーザーが目的（ゴール）に到達するまでの最適な経路を設計することです。ユーザーの行動フローを把握し、迷いが生じない明確な経路を確保することが最重要です。',
+    tip: '導線設計のチェックポイント：ユーザーの「目的」は何か・最短ルートで到達できるか・途中で迷う分岐はないか・ゴール到達後の次のアクションは明確か。ファネル分析（どのステップで離脱しているか）と組み合わせると改善ポイントが見つかります。CRO（コンバージョン率最適化）の基盤となる概念です。',
   },
   {
     id: 'ux-design-impl-014',
@@ -1052,6 +1394,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 3,
     explanation:
       '共感的デザインはユーザーに深く共感することを重視し、観察・インタビュー・体験の模擬などによってユーザーの潜在的なニーズを理解しようとするアプローチです。A/Bテストは定量的な最適化手法で共感的デザインの主手法には含まれません。',
+    tip: '共感的デザインはPatricia Mooreの実践（老人に変装して70代の体験をした）やIFDA（共感デザイン）として有名です。d.schoolのデザイン思考の「共感フェーズ（Empathize）」と同じ精神。ユーザーの靴を履いて歩く（Walk in Their Shoes）という比喩が示す通り、「自分が使いやすい」ではなく「ユーザーが使いやすい」を追求します。',
   },
 
   // ─────────────────────────────────────────────────────────
@@ -1071,6 +1414,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       '専門家によるユーザビリティ評価（エキスパートレビュー）では、評価者の経験・知識・視点によって発見される問題が異なるため、評価者の主観に左右されるリスクがあります。複数の評価者を使うことでカバーできます。',
+    tip: 'エキスパートレビューのメリット：ユーザーを招集せずに低コストで実施できる・早期段階から実施可能。デメリット：評価者の主観に依存・専門家自身のバイアス（エキスパートバイアス）で実際のユーザーの問題を見落とすリスクがある。ユーザーテストと組み合わせて使うのが理想的です。',
   },
   {
     id: 'ux-design-eval-002',
@@ -1086,6 +1430,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 2,
     explanation:
       'ユーザーの行動観察は、ユーザーが自覚していない問題や実際の使い方のギャップを発見するのに最も適しています。「悪い点を直接聞く」だけでは表出化された意見に偏り、実際の行動と乖離することがあります。',
+    tip: '改善点の発見方法の種類：定量的（アクセスログ・ヒートマップ・A/Bテスト）・定性的（ユーザビリティテスト・観察・インタビュー）・専門家評価（ヒューリスティック評価）。「何が問題かわかっている」→定量で優先順位付け。「なぜ問題か・何が問題か探っている」→定性で発見。',
   },
   {
     id: 'ux-design-eval-003',
@@ -1101,6 +1446,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       '思考発話法は、ユーザーが操作中に思考・気持ち・疑問をリアルタイムで声に出してもらう手法です。ユーザーの認知プロセスや問題箇所をリアルタイムで把握できます。',
+    tip: '思考発話法のコツ：参加者に「今何を考えているか、声に出してください」と事前に指示する。モデレーターは「なぜそうしましたか？」より「今何を考えていますか？」と問う（答えではなく思考を引き出すため）。同時発話（Concurrent Think-Aloud）はリアルタイム、回顧法（Retrospective）はタスク後に振り返る形式です。',
   },
   {
     id: 'ux-design-eval-004',
@@ -1115,6 +1461,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       '回顧法はユーザーがタスクを完了した後、操作の録画映像などを見ながら当時の思考・感情を振り返って語ってもらう手法です。タスク中の発話が困難な場面での代替手法として有効です。',
+    tip: '思考発話法（同時）と回顧法の使い分け：同時発話→リアルタイムの思考プロセスを詳しく把握したい時。回顧法→タスク中の発話が難しい作業（集中が必要・ゲームなど）や、感情的な反応（顔の表情・感情の変化）を後から確認したい時。どちらも「ユーザーの頭の中を可視化する」手法です。',
   },
   {
     id: 'ux-design-eval-005',
@@ -1130,6 +1477,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'Nielsenは「5名のユーザーがいれば、ユーザビリティの問題の約85%を発見できる」と提唱しています（Nielsenの公式）。少人数で繰り返しテストすることが費用対効果が高い手法です。',
+    tip: 'Nielsenの5名の根拠：追加の被験者が増えるほど新たに発見できる問題数は急減する（収穫逓減の法則）。ただし例外：複数の異なるユーザーグループをテストする場合は各グループで5名ずつ必要。定量調査（統計的有意性）では数百名が必要ですが、定性的なユーザビリティテストでは5名が最も費用対効果が高いです。',
   },
   {
     id: 'ux-design-eval-006',
@@ -1140,6 +1488,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'Nielsenの10ヒューリスティックスの一つ「システム状態の視認性（Visibility of system status）」は、ユーザーにシステムの現在の状態を常に適切に伝えることの重要性を示しています。',
+    tip: 'Nielsenの10ヒューリスティックス（1994）の全10項目：①システム状態の視認性 ②実世界との調和 ③ユーザーの制御と自由 ④一貫性と標準化 ⑤エラーの防止 ⑥記憶への負担より認識 ⑦柔軟性と効率性 ⑧最小限の設計 ⑨エラーの認識・診断・回復の支援 ⑩ヘルプとドキュメント。ヒューリスティック評価の評価基準として使います。',
   },
   {
     id: 'ux-design-eval-007',
@@ -1154,6 +1503,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       '認知的ウォークスルーは、評価者がエンドユーザーの視点でシナリオに沿って操作ステップを一つずつ辿り、各ステップで「ユーザーはこの行動を思いつくか」「フィードバックは適切か」などを評価する手法です。',
+    tip: '認知的ウォークスルーの4つの問い：①ユーザーはここで目標を達成しようとするか ②ユーザーは正しいアクションを見つけられるか ③ユーザーはそのアクションが正しいと気付くか ④適切なフィードバックが与えられるか。初めて使うユーザーの学習しやすさ（Learnability）の評価に特に有効です。',
   },
   {
     id: 'ux-design-eval-008',
@@ -1169,6 +1519,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'インフォームドコンセントは、被験者に調査の目的・内容・記録方法・データの使用方法・参加中止の自由などを説明し、納得の上で同意を得るプロセスです。研究倫理の観点から必須の手続きです。',
+    tip: 'インフォームドコンセントで必ず説明すべき事項：①調査の目的と方法 ②録画・録音の有無と使用目的 ③データの匿名化・管理方法 ④いつでも参加を中断できること ⑤調査への参加・不参加で不利益が生じないこと。同意書にサインをもらうのが一般的な実施方法です。',
   },
   {
     id: 'ux-design-eval-009',
@@ -1179,6 +1530,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 2,
     explanation:
       'エキスパートレビュー（インスペクション法）にはヒューリスティック評価・認知的ウォークスルー・ガイドライン評価・機能検査などが含まれます。ペルソナはユーザーモデリングのツールであり、エキスパートレビューの手法ではありません。',
+    tip: 'エキスパートレビューの種類の整理：ヒューリスティック評価（Nielsenの10原則に照らし合わせる）・認知的ウォークスルー（操作ステップを1つずつ辿る）・ガイドライン評価（自社・プラットフォームのガイドラインに照らす）・一貫性検査（複数画面の一貫性をチェック）。ペルソナは「誰向けに設計するか」を定義するツールです。',
   },
   {
     id: 'ux-design-eval-010',
@@ -1189,6 +1541,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 2,
     explanation:
       'パフォーマンス測定では、タスク完了率・所要時間・エラー数・エラー率・ヘルプ参照回数などの客観的な行動データを収集します。ユーザーの家族構成はユーザビリティ評価の測定指標には含まれません。',
+    tip: 'ユーザビリティのパフォーマンス指標（KPIの例）：タスク完了率（Completion Rate）・タスク完了時間（Time on Task）・エラー率（Error Rate）・ヘルプ参照率。SUSスコア（System Usability Scale）はアンケート形式で10項目、100点満点のユーザビリティ定量指標です。68点以上が「平均的」とされます。',
   },
   {
     id: 'ux-design-eval-011',
@@ -1203,6 +1556,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       '反復デザインはデザイン→プロトタイプ→テスト→改善のサイクルを繰り返し、各イテレーションで学習した内容を次のデザインに反映させることで、徐々に製品品質を向上させるアプローチです。',
+    tip: '反復デザインはISO9241-210（HCD）のプロセスの核心です。「完璧を目指して1回だけ設計する」より「不完全でも素早くテストして改善を繰り返す」方が高品質な結果を生みます。アジャイル開発の「スプリント」と組み合わせることで、UXの改善サイクルを開発サイクルに統合できます。',
   },
   {
     id: 'ux-design-eval-012',
@@ -1218,6 +1572,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'モデレーターはユーザビリティテストの進行役で、参加者にタスクを提示し、思考発話を促し、観察し、適切なタイミングで質問を行います。参加者に影響を与えないよう中立的な姿勢を保つことが重要です。',
+    tip: 'モデレーターが避けるべき行動：誘導尋問（「この操作は分かりやすかったですか？」）・参加者の判断を評価（「正解です！」）・すぐに助けを出す（困っているように見えてもすぐ介入しない）。「なぜそうしましたか？」→「今何を考えていますか？」の言い換えが重要です。モデレーターの言動がデータを汚染しないよう注意が必要です。',
   },
   {
     id: 'ux-design-eval-013',
@@ -1233,6 +1588,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 0,
     explanation:
       '単一の評価者が発見できるユーザビリティ問題の割合は限られており（約35%）、3〜5名の評価者を使うことで発見率が大幅に向上します（約75%）。評価は独立して行い、後でまとめます。',
+    tip: 'ヒューリスティック評価の実施ステップ：①評価者を3〜5名準備 ②各評価者が独立して評価（相談しない）③発見した問題をリスト化 ④評価者全員で結果を持ち寄り統合 ⑤深刻度（Severity）でランク付け。独立評価が重要な理由：他者の意見に引っ張られると（アンカリング効果で）独自の発見が減ります。',
   },
   {
     id: 'ux-design-eval-014',
@@ -1248,14 +1604,18 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'ユーザビリティ評価の結果は問題の深刻度（発生頻度・ユーザーへの影響度・修正の容易さなど）に基づいてランク付けし、優先的に対応すべき問題を明確にして開発チームと共有することが効果的です。',
+    tip: 'ユーザビリティ問題の深刻度評価（Severity Rating）：0＝問題なし・1＝化粧的問題（時間があれば修正）・2＝軽微（低優先度）・3＝重要（高優先度での修正が必要）・4＝致命的（修正前にリリース不可）。Nielsenの4段階評価が標準的です。深刻度ランキングをつけることで、開発チームが修正の優先順位を判断しやすくなります。',
   },
 
   // ─────────────────────────────────────────────────────────
-  // SECTION 7: UX運用・グロース (14問)
+  // SECTION 8: UX運用・グロース (8問)
+  // SECTION 9: UX組織化 (6問)
+  //   001,005,006,011,012,014 → ux-organization
+  //   002,003,004,007,008,009,010,013 → ux-operations
   // ─────────────────────────────────────────────────────────
   {
     id: 'ux-operations-001',
-    sectionId: 'ux-operations',
+    sectionId: 'ux-organization',
     question: 'UX人材育成の取り組みとしてふさわしくないものを、次の中から選びなさい。',
     choices: [
       '全社横断的に、UXに関する基礎理解を深める研修を行う。',
@@ -1266,6 +1626,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 2,
     explanation:
       'UX人材育成は特定の職種に限定するのではなく、全社横断的に行うことが重要です。マーケティング担当者のみに絞った教育では、組織全体のUX文化が醸成されません。',
+    tip: 'UX人材育成の階層：全社員レベル（UXマインドセット・基礎知識）→UX実践者レベル（リサーチ・デザインスキル）→UXリーダーレベル（戦略・組織変革）。役割に応じた学習内容の設計が重要です。エンジニアやPMにもUXの基礎知識が必要なのは、全員がユーザー体験の意思決定に関わるためです。',
   },
   {
     id: 'ux-operations-002',
@@ -1280,6 +1641,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'DevOpsは開発チームと運用チームが連携・協働することで、ソフトウェアのリリースサイクルを高速化し、品質と安定性を両立させながら継続的デリバリーを実現するための文化・手法・ツールの組み合わせです。',
+    tip: 'DevOpsの3つの柱（The Three Ways）：①フロー（開発→運用の流れを高速化）②フィードバック（問題を素早く発見・修正）③継続的学習（実験と改善を繰り返す）。CI/CD（継続的インテグレーション/継続的デリバリー）がDevOpsの代表的な実践です。UXデザインとDevOpsを統合する動きが「DesignOps」として発展しました。',
   },
   {
     id: 'ux-operations-003',
@@ -1294,6 +1656,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'DesignOpsとは、デザインの実践・ワークフロー・ツールを体系化・標準化することで、デザインチームが戦略的な仕事に集中し、組織全体のデザイン品質と効率を向上させるための取り組みです。',
+    tip: 'DesignOpsが扱う領域：ツール管理（Figma等）・デザインシステムの整備・採用・オンボーディング・ワークフロー最適化・デザインリサーチの組織化。「デザインチームがデザイン以外のことに時間を取られないようにする」ことが目的です。大規模なデザインチームになるほど必要性が高まります。',
   },
   {
     id: 'ux-operations-004',
@@ -1308,10 +1671,11 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'カスタマーサクセスは、顧客が製品・サービスを活用して期待する成果を達成できるよう能動的に支援する取り組みです。解約率低減・LTV（顧客生涯価値）向上・ロイヤルカスタマー育成を目的とします。',
+    tip: 'カスタマーサポートとカスタマーサクセスの違い：サポート=問題が起きてから対応（reactive）・サクセス=問題が起きる前に能動的に支援（proactive）。SaaS（サブスクリプション型）ビジネスではChurn Rate（解約率）の低下がカスタマーサクセスの核心的なKPIです。顧客がソフトウェアの価値を実感できるまでのオンボーディングが特に重要な局面です。',
   },
   {
     id: 'ux-operations-005',
-    sectionId: 'ux-operations',
+    sectionId: 'ux-organization',
     question: 'UX組織における「全社変革」の説明として最も適切なものはどれか。',
     choices: [
       'UXデザインチームを新設すること',
@@ -1322,10 +1686,11 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       '全社変革では、経営トップのコミットメントのもと、UXを全社戦略の中心に置き、組織構造・プロセス・評価制度なども含めて変革を推進します。単一チームの取り組みではなく、組織全体の変革が対象です。',
+    tip: 'UX組織化の変革レベル（UX Maturity Model）：レベル1＝UXへの認識なし → レベル2＝個人の努力 → レベル3＝チームの取り組み → レベル4＝部門の標準 → レベル5＝組織全体の戦略 → レベル6＝UXが経営の核心。「全社変革」はレベル5〜6に相当します。Nielsenの「UX Maturity」で検索できます。',
   },
   {
     id: 'ux-operations-006',
-    sectionId: 'ux-operations',
+    sectionId: 'ux-organization',
     question: 'スキルマップをUX人材育成に活用する目的として最も適切なものはどれか。',
     choices: [
       'チームメンバーの給与・評価を決定するための評価ツール',
@@ -1336,6 +1701,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'UX人材育成におけるスキルマップは、UX関連スキル（リサーチ・デザイン・評価など）を項目化し、個人・チームのスキルレベルを可視化します。育成計画の立案・スキルギャップの特定・成長の可視化に活用されます。',
+    tip: 'UXスキルマップに含まれる主な項目例：ユーザーリサーチ・情報設計・インタラクションデザイン・ビジュアルデザイン・プロトタイピング・ユーザビリティテスト・データ分析・ファシリテーション・コミュニケーション。Tシェイプ型（1〜2領域の専門性＋幅広い基礎知識）が理想的なUXデザイナー像とされます。',
   },
   {
     id: 'ux-operations-007',
@@ -1350,6 +1716,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'DesignOpsはDevOpsの哲学（継続的改善・自動化・コラボレーション）をデザイン実践に適用したものです。DevOpsが開発と運用の連携を最適化するのに対し、DesignOpsはデザインプロセスと組織を最適化します。',
+    tip: 'DesignOpsとDevOpsの共通点：①反復と継続的改善 ②チーム間のコラボレーション ③ツールと自動化の活用 ④品質とスピードの両立。デザインシステム（Design System）はDesignOpsの代表的な成果物で、再利用可能なUIコンポーネントとガイドラインを提供することでデザインと開発の連携を効率化します。',
   },
   {
     id: 'ux-operations-008',
@@ -1364,6 +1731,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'グロースチームは、エンジニア・デザイナー・データアナリスト・マーケターなどが横断的に連携し、ユーザー獲得・アクティベーション・リテンション・収益などの成長指標を継続的に改善する多職種チームです。',
+    tip: 'グロースハッキングのフレームワーク AARRR（Pirates Metrics）：Acquisition（獲得）→ Activation（活性化）→ Retention（継続）→ Referral（紹介）→ Revenue（収益）。Facebookのグロースチームが「友達10人と繋がる」をAHA Momentとして特定し、新規ユーザーのオンボーディングを最適化した事例が有名です。',
   },
   {
     id: 'ux-operations-009',
@@ -1378,6 +1746,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'ビジネスモデルキャンバス（Alexander Osterwalder提唱）は、価値提案・顧客セグメント・チャネル・顧客関係・収益の流れ・主要リソース・主要活動・主要パートナー・コスト構造の9ブロックでビジネスモデルを可視化するフレームワークです。',
+    tip: 'ビジネスモデルキャンバスの9ブロック（英語も確認）：Value Propositions（価値提案）・Customer Segments（顧客セグメント）・Channels（チャネル）・Customer Relationships（顧客関係）・Revenue Streams（収益の流れ）・Key Resources（主要リソース）・Key Activities（主要活動）・Key Partnerships（主要パートナー）・Cost Structure（コスト構造）。UXデザインでは特にValue PropositionsとCustomer Segmentsが設計の起点になります。',
   },
   {
     id: 'ux-operations-010',
@@ -1393,10 +1762,11 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'UXグロースにおける高速改善は、リーンスタートアップやアジャイルの思想をUX改善に適用したものです。仮説を立て、小さな変更を素早く実装・計測・学習し、それを繰り返すことでUXを継続的に向上させます。',
+    tip: '高速改善サイクルの実践：①仮説設定（「〇〇を変えると△△が改善するはず」）→ ②最小限の変更を実装 → ③A/Bテストや計測で効果を確認 → ④学習を次の仮説に活かす。Amazon、Google、Facebookは毎日数千の実験を同時並行で行っていると言われています。この「実験文化」がUXグロースの本質です。',
   },
   {
     id: 'ux-operations-011',
-    sectionId: 'ux-operations',
+    sectionId: 'ux-organization',
     question: 'UX担当役員・責任者を設けることの意義として最も適切なものはどれか。',
     choices: [
       'UXに関する全作業を一人に集中させることで効率化を図るため',
@@ -1407,10 +1777,11 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'UX担当役員・責任者を設けることで、UXが経営アジェンダとして取り上げられ、全社的な予算・権限・優先順位付けが可能になります。組織全体でUXを推進するためのトップマネジメントのコミットメントを示すことができます。',
+    tip: 'UX責任者の役職名の例：Chief Experience Officer（CXO）・VP of Design・Head of UX・Design Lead。Appleはジョニー・アイブ（Jony Ive）という強力なデザイン責任者のもとUX中心の組織を作りました。「デザインの意思決定に予算と権限がなければUXは実現しない」という組織論の核心です。',
   },
   {
     id: 'ux-operations-012',
-    sectionId: 'ux-operations',
+    sectionId: 'ux-organization',
     question:
       'UX人材のカリキュラム設計において重要な考え方として最も適切なものはどれか。',
     choices: [
@@ -1422,6 +1793,7 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'UX人材育成のカリキュラムは、対象者の役割（デザイナー・エンジニア・マネージャーなど）・スキルレベル・業務との関連性を考慮してカスタマイズすることが重要です。座学と実践を組み合わせることで効果が高まります。',
+    tip: '効果的なUX学習の設計原則：70-20-10の法則（学びの70%は実務経験・20%は他者との交流・10%は研修や書籍）。座学だけでは定着しにくく、実際のプロジェクトでのOJT（On-the-Job Training）と組み合わせることが重要です。また、学習後の「振り返り（レトロスペクティブ）」の機会を設けると定着率が上がります。',
   },
   {
     id: 'ux-operations-013',
@@ -1437,10 +1809,11 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'データサイエンティストはユーザーの行動データ（アクセスログ・購買データ・使用パターンなど）を統計的・機械学習的に分析することで、UXの問題箇所の特定・施策の効果測定・優先順位付けの定量的根拠を提供します。',
+    tip: 'データサイエンティストがUXグロースで使う代表的な手法：コホート分析（特定グループの時系列行動追跡）・ファネル分析（どのステップで離脱するか）・A/Bテスト（施策の効果検証）・RFM分析（Recency/Frequency/Monetary）・クラスター分析（ユーザーセグメント分類）。「データで仮説を立て、UXリサーチで深掘り」が黄金パターンです。',
   },
   {
     id: 'ux-operations-014',
-    sectionId: 'ux-operations',
+    sectionId: 'ux-organization',
     question: '「個別サービス変革」のUXグロース活動として最も適切なものはどれか。',
     choices: [
       '全社のDX推進計画を策定すること',
@@ -1451,5 +1824,6 @@ export const QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       '個別サービス変革は、全社変革や事業変革の下位概念として、特定の製品・サービス単位でUXデザインの実践・評価・改善のサイクルを確立し、ユーザー体験を高めていく活動です。',
+    tip: 'UX組織化の変革スコープの階層：個別サービス変革（特定の製品・サービス単位）→ 事業変革（事業部門単位）→ 全社変革（組織全体）。小さくても「UXの成功事例を作る」ことが、より大きな変革への説得力になります。スモールスタートで価値を示してから横展開するアプローチが現実的です。',
   },
 ];
