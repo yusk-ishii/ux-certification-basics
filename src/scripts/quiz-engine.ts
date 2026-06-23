@@ -89,7 +89,7 @@ export function initQuiz(): void {
             <p class="text-xs font-medium text-indigo-600 mb-2">問 ${currentIndex + 1}</p>
             <p class="text-slate-800 leading-relaxed font-medium">${escapeHtml(q.question)}</p>
           </div>
-          <button id="bookmark-btn" class="shrink-0 text-2xl leading-none transition-opacity ${isBookmarked ? 'opacity-100' : 'opacity-30 hover:opacity-70'}" title="あとで見直す">
+          <button id="bookmark-btn" class="shrink-0 text-2xl leading-none transition-colors" style="color: ${isBookmarked ? '#FFDB50' : '#d1d5db'}" title="あとで見直す">
             ★
           </button>
         </div>
@@ -107,10 +107,8 @@ export function initQuiz(): void {
 
     document.getElementById('bookmark-btn')!.addEventListener('click', () => {
       const newState = toggleBookmark(q.id);
-      const btn = document.getElementById('bookmark-btn')!;
-      btn.className = btn.className.replace(/opacity-\d+/g, '').trim();
-      btn.classList.add(newState ? 'opacity-100' : 'opacity-30');
-      if (!newState) btn.classList.add('hover:opacity-70');
+      const btn = document.getElementById('bookmark-btn') as HTMLButtonElement;
+      btn.style.color = newState ? '#FFDB50' : '#d1d5db';
     });
 
     document.querySelectorAll<HTMLButtonElement>('.choice-btn').forEach((btn) => {

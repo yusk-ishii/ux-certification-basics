@@ -138,7 +138,7 @@ export function initExam(): void {
           <div class="flex gap-2 items-start">
             <div class="shrink-0 pt-0.5">${icon}</div>
             <p class="text-sm font-medium text-slate-800 flex-1">${idx + 1}. ${escapeHtml(q.question)}</p>
-            <button data-qid="${q.id}" class="bookmark-result-btn shrink-0 text-xl leading-none transition-opacity ${bookmarked ? 'opacity-100' : 'opacity-25 hover:opacity-60'}" title="あとで見直す">★</button>
+            <button data-qid="${q.id}" class="bookmark-result-btn shrink-0 text-xl leading-none transition-colors" style="color: ${bookmarked ? '#FFDB50' : '#d1d5db'}" title="あとで見直す">★</button>
           </div>
           <div class="space-y-1 pl-5">${choicesHtml}</div>
           <div class="pl-5 pt-1 border-t border-slate-100">
@@ -173,8 +173,7 @@ export function initExam(): void {
     document.querySelectorAll<HTMLButtonElement>('.bookmark-result-btn').forEach((btn) => {
       btn.addEventListener('click', () => {
         const newState = toggleBookmark(btn.dataset.qid!);
-        btn.classList.toggle('opacity-100', newState);
-        btn.classList.toggle('opacity-25', !newState);
+        btn.style.color = newState ? '#FFDB50' : '#d1d5db';
       });
     });
   }
