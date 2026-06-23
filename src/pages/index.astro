@@ -5,6 +5,7 @@ import { SECTIONS, QUESTIONS } from '../data/questions';
 
 const totalCount = QUESTIONS.length;
 const BASE = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const allQuestionsJson = JSON.stringify(QUESTIONS);
 
 const sectionCounts = SECTIONS.map((section) => ({
   section,
@@ -13,26 +14,58 @@ const sectionCounts = SECTIONS.map((section) => ({
 ---
 
 <BaseLayout title="ホーム">
-  <div class="space-y-8">
+  <script is:inline define:vars={{ allQuestionsJson, BASE }}>
+    window.__ALL_QUESTIONS__ = JSON.parse(allQuestionsJson);
+    window.__BASE__ = BASE;
+  </script>
+
+  <div class="space-y-6">
     <!-- Hero -->
-    <div class="text-center space-y-3 pt-4">
+    <div class="text-center space-y-2 pt-4">
       <h1 class="text-3xl font-bold text-slate-800">UX検定基礎</h1>
-      <p class="text-slate-500">シラバス全7セクション・{totalCount}問の練習問題で合格を目指そう</p>
+      <p class="text-slate-500 text-sm">シラバス全7セクション・{totalCount}問</p>
     </div>
 
-    <!-- All questions button -->
-    <a
-      href={`${BASE}quiz/`}
-      class="flex items-center justify-between bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl px-6 py-5 transition-colors shadow-md"
-    >
-      <div>
-        <p class="font-bold text-lg">全問題に挑戦</p>
-        <p class="text-indigo-200 text-sm mt-0.5">全{totalCount}問・ランダム出題</p>
+    <!-- Dynamic mode cards (populated by JS) -->
+    <div id="dynamic-cards" class="space-y-3"></div>
+
+    <!-- Static mode cards -->
+    <div class="space-y-3">
+      <a
+        href={`${BASE}quiz/`}
+        class="flex items-center justify-between bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl px-6 py-4 transition-colors shadow-sm"
+      >
+        <div>
+          <p class="font-bold">全問題に挑戦</p>
+          <p class="text-indigo-200 text-sm mt-0.5">全{totalCount}問・ランダム出題</p>
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </a>
+
+      <a
+        href={`${BASE}quiz/exam/`}
+        class="flex items-center justify-between bg-violet-600 hover:bg-violet-700 text-white rounded-xl px-6 py-4 transition-colors shadow-sm"
+      >
+        <div>
+          <p class="font-bold">模擬試験</p>
+          <p class="text-violet-200 text-sm mt-0.5">30問・最後にまとめて採点</p>
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </a>
+
+      <div class="flex gap-3">
+        <a href={`${BASE}stats/`} class="flex-1 bg-white border border-slate-200 hover:border-indigo-300 rounded-xl px-4 py-3 text-sm font-semibold text-slate-700 text-center transition-all">
+          📊 進捗を見る
+        </a>
+        <a href={`${BASE}quiz/bookmarks/`} class="flex-1 bg-white border border-slate-200 hover:border-yellow-400 rounded-xl px-4 py-3 text-sm font-semibold text-slate-700 text-center transition-all">
+          ★ ブックマーク
+        </a>
       </div>
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-      </svg>
-    </a>
+    </div>
 
     <!-- Section cards -->
     <div>
@@ -49,3 +82,43 @@ const sectionCounts = SECTIONS.map((section) => ({
     </div>
   </div>
 </BaseLayout>
+
+<script>
+  import { getTodayReviewIds, getWeakIds } from '../utils/storage';
+
+  const homeUrl: string = (window as any).__BASE__;
+  const todayIds = getTodayReviewIds();
+  const weakIds = getWeakIds(30);
+
+  const cards: string[] = [];
+
+  if (todayIds.length > 0) {
+    cards.push(`
+      <a href="${homeUrl}quiz/review/" class="flex items-center justify-between bg-green-600 hover:bg-green-700 text-white rounded-xl px-6 py-4 transition-colors shadow-sm">
+        <div>
+          <p class="font-bold">今日の復習</p>
+          <p class="text-green-100 text-sm mt-0.5">${todayIds.length}問が出題予定</p>
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </a>`);
+  }
+
+  if (weakIds.length > 0) {
+    cards.push(`
+      <a href="${homeUrl}quiz/weak/" class="flex items-center justify-between bg-amber-500 hover:bg-amber-600 text-white rounded-xl px-6 py-4 transition-colors shadow-sm">
+        <div>
+          <p class="font-bold">弱点モード</p>
+          <p class="text-amber-100 text-sm mt-0.5">正答率の低い${Math.min(weakIds.length, 30)}問を出題</p>
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </a>`);
+  }
+
+  if (cards.length > 0) {
+    document.getElementById('dynamic-cards')!.innerHTML = cards.join('');
+  }
+</script>

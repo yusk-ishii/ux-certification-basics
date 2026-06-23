@@ -22,3 +22,14 @@ export interface Question {
   correctIndex: 0 | 1 | 2 | 3;
   explanation: string;
 }
+
+export interface LearningRecord {
+  correct: number;
+  incorrect: number;
+  level: 0 | 1 | 2 | 3 | 4 | 5;
+  nextReview: string | null;
+  bookmarked: boolean;
+  lastAnswered: string | null;
+}
+
+export type LearningHistory = Record<string, LearningRecord>;

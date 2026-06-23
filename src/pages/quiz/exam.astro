@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { QUESTIONS } from '../../data/questions';
+
+const allQuestionsJson = JSON.stringify(QUESTIONS);
+const homeUrl = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const examCount = 30;
+---
+
+<BaseLayout title="模擬試験">
+  <script is:inline define:vars={{ allQuestionsJson, homeUrl, examCount }}>
+    window.__ALL_QUESTIONS__ = JSON.parse(allQuestionsJson);
+    window.__QUIZ_HOME_URL__ = homeUrl;
+    window.__EXAM_COUNT__ = examCount;
+  </script>
+
+  <div class="mb-6">
+    <div class="flex items-center justify-between text-sm mb-2">
+      <span class="font-semibold text-slate-700">模擬試験（{examCount}問）</span>
+      <span id="answered-display" class="text-slate-500">解答済み: 0 / {examCount}</span>
+    </div>
+    <div class="flex items-center gap-3">
+      <div class="flex-1 bg-slate-200 rounded-full h-2.5">
+        <div id="progress-bar" class="bg-violet-600 h-2.5 rounded-full transition-all duration-300" style="width: 0%"></div>
+      </div>
+      <span id="progress-label" class="text-sm text-slate-400 shrink-0 w-14 text-right">0 / {examCount}</span>
+    </div>
+  </div>
+
+  <div id="quiz-container" class="min-h-64"></div>
+</BaseLayout>
+
+<script>
+  import { initExam } from '../../scripts/exam-engine';
+
+  function shuffle<T>(arr: T[]): T[] {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  const count: number = (window as any).__EXAM_COUNT__ ?? 30;
+  window.__QUIZ_QUESTIONS__ = shuffle(window.__ALL_QUESTIONS__).slice(0, count);
+  initExam();
+</script>

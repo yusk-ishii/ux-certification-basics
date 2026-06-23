@@ -1,34 +1,20 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { QUESTIONS, SECTIONS } from '../../data/questions';
-import type { GetStaticPaths } from 'astro';
+import { QUESTIONS } from '../../data/questions';
 
-export const getStaticPaths: GetStaticPaths = () => {
-  return SECTIONS.map((section) => ({
-    params: { section: section.id },
-    props: {
-      section,
-      questions: QUESTIONS.filter((q) => q.sectionId === section.id),
-    },
-  }));
-};
-
-const { section, questions } = Astro.props;
-const questionsJson = JSON.stringify(questions);
-const sectionLabel = section.label;
+const allQuestionsJson = JSON.stringify(QUESTIONS);
 const homeUrl = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 ---
 
-<BaseLayout title={`${section.label}クイズ`}>
-  <script is:inline define:vars={{ questionsJson, sectionLabel, homeUrl }}>
-    window.__QUIZ_QUESTIONS__ = JSON.parse(questionsJson);
-    window.__QUIZ_SECTION_LABEL__ = sectionLabel;
+<BaseLayout title="今日の復習">
+  <script is:inline define:vars={{ allQuestionsJson, homeUrl }}>
+    window.__ALL_QUESTIONS__ = JSON.parse(allQuestionsJson);
     window.__QUIZ_HOME_URL__ = homeUrl;
   </script>
 
   <div class="mb-6">
     <div class="flex items-center justify-between text-sm mb-2">
-      <span id="section-label" class="font-semibold text-slate-700">{section.label}</span>
+      <span id="section-label" class="font-semibold text-slate-700">今日の復習</span>
       <span id="score-display" class="text-slate-500">スコア: 0 / 0</span>
     </div>
     <div class="flex items-center gap-3">
@@ -43,6 +29,14 @@ const homeUrl = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 </BaseLayout>
 
 <script>
+  import { getTodayReviewIds } from '../../utils/storage';
   import { initQuiz } from '../../scripts/quiz-engine';
+
+  const ids = new Set(getTodayReviewIds());
+  const all: typeof window.__QUIZ_QUESTIONS__ = window.__ALL_QUESTIONS__;
+  window.__QUIZ_QUESTIONS__ = ids.size > 0
+    ? all.filter((q) => ids.has(q.id))
+    : [];
+  window.__QUIZ_SECTION_LABEL__ = '今日の復習';
   initQuiz();
 </script>

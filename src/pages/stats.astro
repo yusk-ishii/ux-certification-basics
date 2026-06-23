@@ -1,0 +1,151 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { QUESTIONS, SECTIONS } from '../data/questions';
+
+const allQuestionsJson = JSON.stringify(QUESTIONS);
+const sectionsJson = JSON.stringify(SECTIONS);
+const homeUrl = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+---
+
+<BaseLayout title="進捗">
+  <script is:inline define:vars={{ allQuestionsJson, sectionsJson, homeUrl }}>
+    window.__ALL_QUESTIONS__ = JSON.parse(allQuestionsJson);
+    window.__SECTIONS__ = JSON.parse(sectionsJson);
+    window.__QUIZ_HOME_URL__ = homeUrl;
+  </script>
+
+  <div class="space-y-6">
+    <h1 class="text-xl font-bold text-slate-800">学習進捗</h1>
+    <div id="stats-container">
+      <p class="text-slate-400 text-sm">読み込み中...</p>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  import { getHistory } from '../utils/storage';
+
+  type Question = { id: string; sectionId: string };
+  type Section = { id: string; label: string };
+
+  const history = getHistory();
+  const questions: Question[] = window.__ALL_QUESTIONS__;
+  const sections: Section[] = window.__SECTIONS__;
+  const homeUrl = window.__QUIZ_HOME_URL__;
+
+  const totalAnswered = questions.filter((q) => {
+    const r = history[q.id];
+    return r && r.correct + r.incorrect > 0;
+  }).length;
+
+  const totalCorrect = questions.reduce((sum, q) => sum + (history[q.id]?.correct ?? 0), 0);
+  const totalAttempts = questions.reduce((sum, q) => {
+    const r = history[q.id];
+    return sum + (r ? r.correct + r.incorrect : 0);
+  }, 0);
+  const overallRate = totalAttempts > 0 ? Math.round((totalCorrect / totalAttempts) * 100) : null;
+
+  const bookmarked = questions.filter((q) => history[q.id]?.bookmarked).length;
+
+  const srsLabels: Record<number, string> = {
+    0: '未学習・要復習',
+    1: '習得中（翌日）',
+    2: '習得中（3日後）',
+    3: '習得中（7日後）',
+    4: 'ほぼ習得（14日後）',
+    5: '習得済み（30日後）',
+  };
+
+  const srsColors: Record<number, string> = {
+    0: 'bg-red-100 text-red-700',
+    1: 'bg-orange-100 text-orange-700',
+    2: 'bg-yellow-100 text-yellow-700',
+    3: 'bg-lime-100 text-lime-700',
+    4: 'bg-green-100 text-green-700',
+    5: 'bg-emerald-100 text-emerald-700',
+  };
+
+  const srsDistribution = [0, 1, 2, 3, 4, 5].map((level) => ({
+    level,
+    count: questions.filter((q) => (history[q.id]?.level ?? 0) === level).length,
+  }));
+
+  const sectionRows = sections.map((sec) => {
+    const qs = questions.filter((q) => q.sectionId === sec.id);
+    const correct = qs.reduce((s, q) => s + (history[q.id]?.correct ?? 0), 0);
+    const attempts = qs.reduce((s, q) => {
+      const r = history[q.id];
+      return s + (r ? r.correct + r.incorrect : 0);
+    }, 0);
+    const rate = attempts > 0 ? Math.round((correct / attempts) * 100) : null;
+    return { label: sec.label, id: sec.id, total: qs.length, attempts, rate };
+  });
+
+  const overallRateHtml = overallRate !== null
+    ? `<span class="text-3xl font-bold ${overallRate >= 70 ? 'text-green-600' : 'text-amber-500'}">${overallRate}%</span>`
+    : '<span class="text-2xl font-bold text-slate-300">--</span>';
+
+  const srsHtml = srsDistribution.map(({ level, count }) => `
+    <div class="flex items-center justify-between">
+      <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${srsColors[level]}">${srsLabels[level]}</span>
+      <span class="text-sm font-semibold text-slate-700">${count}問</span>
+    </div>`).join('');
+
+  const sectionHtml = sectionRows.map((sec) => {
+    const rateStr = sec.rate !== null ? `${sec.rate}%` : '--';
+    const barW = sec.rate !== null ? sec.rate : 0;
+    const barColor = sec.rate === null ? 'bg-slate-200' : sec.rate >= 70 ? 'bg-green-500' : sec.rate >= 50 ? 'bg-amber-400' : 'bg-red-400';
+    return `
+      <div class="space-y-1">
+        <div class="flex items-center justify-between text-sm">
+          <span class="text-slate-700">${sec.label}</span>
+          <span class="font-semibold ${sec.rate === null ? 'text-slate-300' : sec.rate >= 70 ? 'text-green-600' : 'text-amber-500'}">${rateStr}</span>
+        </div>
+        <div class="bg-slate-100 rounded-full h-2">
+          <div class="${barColor} h-2 rounded-full transition-all" style="width: ${barW}%"></div>
+        </div>
+        <p class="text-xs text-slate-400">${sec.attempts}回解答 / ${sec.total}問</p>
+      </div>`;
+  }).join('');
+
+  const container = document.getElementById('stats-container')!;
+  container.innerHTML = `
+    <div class="space-y-5">
+      <div class="grid grid-cols-3 gap-3">
+        <div class="bg-white rounded-xl border border-slate-200 p-4 text-center">
+          <p class="text-xs text-slate-400 mb-1">全体正答率</p>
+          ${overallRateHtml}
+        </div>
+        <div class="bg-white rounded-xl border border-slate-200 p-4 text-center">
+          <p class="text-xs text-slate-400 mb-1">解答済み問題</p>
+          <span class="text-3xl font-bold text-indigo-600">${totalAnswered}</span><span class="text-slate-400 text-sm"> / 100</span>
+        </div>
+        <div class="bg-white rounded-xl border border-slate-200 p-4 text-center">
+          <p class="text-xs text-slate-400 mb-1">ブックマーク</p>
+          <span class="text-3xl font-bold text-yellow-500">${bookmarked}</span><span class="text-slate-400 text-sm">問</span>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl border border-slate-200 p-5 space-y-3">
+        <h2 class="text-sm font-semibold text-slate-500 uppercase tracking-wider">SRSレベル分布</h2>
+        <div class="space-y-2">${srsHtml}</div>
+      </div>
+
+      <div class="bg-white rounded-xl border border-slate-200 p-5 space-y-4">
+        <h2 class="text-sm font-semibold text-slate-500 uppercase tracking-wider">セクション別正答率</h2>
+        <div class="space-y-4">${sectionHtml}</div>
+      </div>
+
+      <div class="flex gap-3">
+        <a href="${homeUrl}" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl px-4 py-3 transition-colors text-center text-sm">ホームへ</a>
+        <button id="reset-btn" class="border-2 border-red-300 text-red-500 hover:bg-red-50 font-semibold rounded-xl px-4 py-3 transition-colors text-sm">履歴をリセット</button>
+      </div>
+    </div>`;
+
+  document.getElementById('reset-btn')!.addEventListener('click', () => {
+    if (confirm('学習履歴をすべて削除しますか？この操作は取り消せません。')) {
+      localStorage.removeItem('ux-quiz:history');
+      location.reload();
+    }
+  });
+</script>
