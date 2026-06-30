@@ -40,6 +40,7 @@ export function initExam(): void {
 
   let currentIndex = 0;
   const answers: (number | null)[] = new Array(questions.length).fill(null);
+  const choiceOrders: number[][] = questions.map(() => shuffle([0, 1, 2, 3]));
 
   const container = document.getElementById('quiz-container')!;
   const progressBar = document.getElementById('progress-bar')!;
@@ -56,6 +57,8 @@ export function initExam(): void {
 
   function renderQuestion() {
     const q = questions[currentIndex];
+    const order = choiceOrders[currentIndex];
+    const displayChoices = order.map((origIdx) => q.choices[origIdx]);
     const selectedAnswer = answers[currentIndex];
     updateProgress();
 
@@ -66,7 +69,7 @@ export function initExam(): void {
           <p class="text-slate-800 leading-relaxed font-medium">${escapeHtml(q.question)}</p>
         </div>
         <div class="space-y-3" id="choices">
-          ${q.choices.map((c, i) => {
+          ${displayChoices.map((c, i) => {
             const isSelected = selectedAnswer === i;
             const cls = isSelected
               ? 'choice-btn w-full text-left border-2 border-violet-500 bg-violet-50 text-violet-800 rounded-xl px-5 py-4'
@@ -105,7 +108,7 @@ export function initExam(): void {
   }
 
   function renderResults() {
-    const score = answers.filter((a, i) => a === questions[i].correctIndex).length;
+    const score = answers.filter((a, i) => a !== null && choiceOrders[i][a] === questions[i].correctIndex).length;
     const pct = Math.round((score / questions.length) * 100);
     const passed = pct >= 70;
 
@@ -115,20 +118,22 @@ export function initExam(): void {
 
     questions.forEach((q, i) => {
       const a = answers[i];
-      if (a !== null) recordAnswer(q.id, a === q.correctIndex);
+      if (a !== null) recordAnswer(q.id, choiceOrders[i][a] === q.correctIndex);
     });
 
     const resultRows = questions.map((q, idx) => {
+      const order = choiceOrders[idx];
       const selected = answers[idx];
-      const isCorrect = selected === q.correctIndex;
+      const isCorrect = selected !== null && order[selected] === q.correctIndex;
       const icon = isCorrect
         ? '<span class="text-green-600 font-bold text-sm">✓</span>'
         : '<span class="text-red-500 font-bold text-sm">✗</span>';
       const bookmarked = getHistory()[q.id]?.bookmarked ?? false;
 
-      const choicesHtml = q.choices.map((c, ci) => {
+      const choicesHtml = order.map((origIdx, ci) => {
+        const c = q.choices[origIdx];
         let cls = 'text-slate-600';
-        if (ci === q.correctIndex) cls = 'text-green-700 font-semibold';
+        if (origIdx === q.correctIndex) cls = 'text-green-700 font-semibold';
         else if (ci === selected && !isCorrect) cls = 'text-red-500 line-through';
         return `<p class="text-xs ${cls}">${ci + 1}. ${escapeHtml(c)}</p>`;
       }).join('');

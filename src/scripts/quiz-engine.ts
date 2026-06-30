@@ -26,6 +26,13 @@ function shuffle<T>(arr: T[]): T[] {
   return a;
 }
 
+function shuffleChoices(q: Question): { displayChoices: string[]; indexMap: number[]; correctDisplayIndex: number } {
+  const indexMap = shuffle([0, 1, 2, 3]);
+  const displayChoices = indexMap.map((origIdx) => q.choices[origIdx]);
+  const correctDisplayIndex = indexMap.indexOf(q.correctIndex);
+  return { displayChoices, indexMap, correctDisplayIndex };
+}
+
 function escapeHtml(str: string): string {
   return str
     .replace(/&/g, '&amp;')
@@ -58,6 +65,7 @@ export function initQuiz(): void {
 
   let currentIndex = 0;
   let score = 0;
+  let currentShuffle = shuffleChoices(questions[0]);
   const results: { question: Question; selectedIndex: number; isCorrect: boolean }[] = [];
 
   const container = document.getElementById('quiz-container')!;
@@ -79,6 +87,7 @@ export function initQuiz(): void {
 
   function renderQuestion() {
     const q = questions[currentIndex];
+    currentShuffle = shuffleChoices(q);
     updateProgress();
     const isBookmarked = getBookmarkState(q.id);
 
@@ -94,7 +103,7 @@ export function initQuiz(): void {
           </button>
         </div>
         <div class="space-y-3" id="choices">
-          ${q.choices.map((c, i) => `
+          ${currentShuffle.displayChoices.map((c, i) => `
             <button data-index="${i}" class="choice-btn w-full text-left border-2 border-slate-200 rounded-xl px-5 py-4 text-slate-700 hover:border-indigo-400 hover:bg-indigo-50 transition-all">
               <span class="font-medium text-slate-400 mr-2">${i + 1}.</span>${escapeHtml(c)}
             </button>`).join('')}
@@ -116,9 +125,10 @@ export function initQuiz(): void {
     });
   }
 
-  function handleAnswer(selectedIndex: number) {
+  function handleAnswer(selectedDisplayIndex: number) {
     const q = questions[currentIndex];
-    const isCorrect = selectedIndex === q.correctIndex;
+    const isCorrect = selectedDisplayIndex === currentShuffle.correctDisplayIndex;
+    const selectedIndex = currentShuffle.indexMap[selectedDisplayIndex];
     if (isCorrect) score++;
     results.push({ question: q, selectedIndex, isCorrect });
 
@@ -126,9 +136,9 @@ export function initQuiz(): void {
 
     document.querySelectorAll<HTMLButtonElement>('.choice-btn').forEach((btn, i) => {
       btn.disabled = true;
-      if (i === q.correctIndex) {
+      if (i === currentShuffle.correctDisplayIndex) {
         btn.className = 'choice-btn w-full text-left border-2 border-green-500 bg-green-50 text-green-800 rounded-xl px-5 py-4';
-      } else if (i === selectedIndex && !isCorrect) {
+      } else if (i === selectedDisplayIndex && !isCorrect) {
         btn.className = 'choice-btn w-full text-left border-2 border-red-400 bg-red-50 text-red-800 rounded-xl px-5 py-4 opacity-80';
       } else {
         btn.className = 'choice-btn w-full text-left border-2 border-slate-200 rounded-xl px-5 py-4 text-slate-400 opacity-40';
